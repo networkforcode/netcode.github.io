@@ -1,10 +1,9 @@
 ---
-layout: post
-<img src="{{ '/assets/img/netde.jpg' | prepend: site.baseurl }}" alt=""> 
+layout: post 
 title: "Network Programmability - Formatando dados com YAML e XML"
 date:   2020-03-24
 ---
-<img src="{{ '/assets/img/netde.jpg' | prepend: site.baseurl }}" alt="">
+
 <p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos falar  dos conceitos por trás das linguagens de estrutura e formatos de dados, como YAML e XML. Pegue seu café, se acomode e vamos nessa! Até hoje, nós da área de infraestrutura não precisávamos saber programar. Ok, o conhecimento em linguagens de programação  é muito útil para automatizarmos tarefas e rotinas comuns de testes, mas nunca foi um grande requisito no currículo de um CCNP.</p>
 
 <p>Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.</p>
