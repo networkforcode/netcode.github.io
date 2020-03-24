@@ -1,7 +1,7 @@
-title: Long Haul
+title: Network for Code
 description: Long Form Jekyll theme built with SASS / COMPASS / SUSY
 
-url: http://brianmaierjr.github.com/long-haul
+url: https://networkforcode.github.io/
 baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
@@ -12,17 +12,16 @@ plugins: [jekyll-paginate]
 paginate: 5
 
 navigation:
-  - title: Home
+  - title: Início
     url: /index.html
-  - title: About
+  - title: Sobre
     url: /about
-  - title: Contact
+  - title: 
     url: /contact
 
 social:
-  github: brianmaierjr
-  twitter: brianmaierjr
-  facebook: brianmaierjr
-  email: brimaidesigns@gmail.com
+  github: networkforcode
+  linkedin: https://www.linkedin.com/in/thiago-porfirio
+  email: tiagutino.porfirio@gmail.com
 
-google_analytics: "UA-58263416-1"
+google_analytics: ""
