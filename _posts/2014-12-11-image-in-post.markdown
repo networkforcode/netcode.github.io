@@ -10,7 +10,7 @@ date:   2020-03-24
 
 <p>Ao citar a linguagem XML, o exemplo mais comum no mundo de network é que o JunOS estrutura os dados que o SO utiliza via linguagem XML. Ex - Basta setarmos o comando > show isis adjacency detail | display xml rpc que ele nos mostrará a saída descrita abaixo.</p>
 
-{% highlight ruby %}
+{% lowlight ruby %}
     <rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
         <rpc>
             <get-isis-adjacency-information>
@@ -21,7 +21,7 @@ date:   2020-03-24
             <banner></banner>
         </cli>
     </rpc-reply>
-{% endhighlight %}
+{% endlowlight %}
 
 
 <img src="{{ '/assets/img/touring.jpg' | prepend: site.baseurl }}" alt=""> 
