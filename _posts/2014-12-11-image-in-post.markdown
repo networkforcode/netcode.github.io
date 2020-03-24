@@ -1,12 +1,30 @@
 ---
 layout: post
-title:  "Image in Post"
-date:   2014-12-11
+title:  "Network Programmability - Formatando dados com YAML e XML"
+date:   2020-03-24
 ---
 
-<p class="intro"><span class="dropcap">L</span>orem ipsum thor smash liege-bastogne-liege landbouwkrediet ombregt krabbe, rouleur derby is for lovers bonk giro gilbert bidon. Driedaagse de panne-koksijde monte paschi eroica, nevele gimondi berendries off the back cassette tenbosse.</p>
+<p class="intro"><span class="dropcap">L</span>oNo artigo de hoje, iremos falar  dos conceitos por trás das linguagens de estrutura e formatos de dados, como YAML e XML. Pegue seu café, se acomode e vamos nessa!
 
-Bahamontes lanterne rouge normandie belgium. Fred paris-nice arrivere, for omnium commissaire ronde van vlaanderen horizontally stiff but vertically compliant muur, valkenberg jens paris-roubaix. Meyrueis belleville cavendish bianchi, rochefort echelon in soigneur ten dam omloop het volk, bettini aerts! Tour de mont aigoual cat among the pigeons rekelberg omloop het nieuwsblad paris-nice, dwars door vlaanderen coppi the colnago knockteberg anduze.
+Até hoje, nós da área de infraestrutura não precisávamos saber programar. Ok, o conhecimento em linguagens de programação  é muito útil para automatizarmos tarefas e rotinas comuns de testes, mas nunca foi um grande requisito no currículo de um CCNP.</p>
+
+Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.
+
+Ao citar a linguagem XML, o exemplo mais comum no mundo de network é que o JunOS estrutura os dados que o SO utiliza via linguagem XML. Ex - Basta setarmos o comando > show isis adjacency detail | display xml rpc que ele nos mostrará a saída descrita abaixo.
+
+{% highlight ruby %}
+<rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
+    <rpc>
+        <get-isis-adjacency-information>
+            <detail/>
+        </get-isis-adjacency-information>
+    </rpc>
+    <cli>
+        <banner></banner>
+    </cli>
+</rpc-reply>
+{% endhighlight %}
+
 
 <img src="{{ '/assets/img/touring.jpg' | prepend: site.baseurl }}" alt=""> 
 
