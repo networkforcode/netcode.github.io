@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Network Programmability - Formatando dados com YAML e XMLs"
+title:  "Network Programmability - Formatando dados com YAML e XML"
 date:   2020-03-24
 ---
 
