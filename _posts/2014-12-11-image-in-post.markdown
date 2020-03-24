@@ -107,7 +107,7 @@ date:   2020-03-24
 
 <p>Na linha 4 foi criada uma variável chamada “result’, dentro dessa variável, inserimos a função load(), essa função carrega o módulo YAML e nos permite carregar a saída deste arquivo em um dicionário que está alocado na variável “result”. Abaixo mostra o arquivo .py sendo compilado e retornando um dicionário baseado na estrutura python.</p>
 {% highlight ruby %}
-    [{'juniper': 'EX9200'}, {'cisco', '6500'}, {'VMware': ['esxi', 'vcenter']}]
+ [{'juniper': 'EX9200'}, {'cisco', '6500'}, {'VMware': ['esxi', 'vcenter']}]
 {% endhighlight %}
 
 #### XML
