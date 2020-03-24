@@ -9,7 +9,6 @@ date:   2020-03-24
 <p>Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.</p>
 
 <p>Ao citar a linguagem XML, o exemplo mais comum no mundo de network é que o JunOS estrutura os dados que o SO utiliza via linguagem XML. Ex - Basta setarmos o comando > show isis adjacency detail | display xml rpc que ele nos mostrará a saída descrita abaixo.</p>
-
 {% highlight ruby %}
     <rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
         <rpc>
@@ -52,7 +51,6 @@ date:   2020-03-24
 <p>Esse é um grande motivo pelo qual um número crescente de ferramentas está usando o YAML como um método para definir um fluxo de trabalho de automação ou fornecer um conjunto de dados para trabalhar (como uma lista de VLANs). É muito fácil usar o YAML para ir de zero a um funcional fluxo de trabalho de automação ou para definir os dados que você deseja enviar para um dispositivo de rede.</p>
 
 <p>Na imagem descrita abaixo, percebe-se que no início contém três hifens, isso significa que todo início de um código .yml deve conter os três hifens.</p>
-
 {% highlight ruby %}
     ---
     - core switch
@@ -70,7 +68,6 @@ date:   2020-03-24
 <p>Por exemplo, você pode escrever False, como no exemplo acima, ou você poderia escrever não, desligado ou simplesmente n. Todos eles acabam significando a mesma coisa: um valor booleano falso. Esta é uma grande razão pela qual o YAML é frequentemente usado como uma interface humana para muitos softwares.</p>
 
 <p>O exemplo a seguir iremos nos referir nos formatos de dicionário que contém nessa linguagem.</p>
-
 {% highlight ruby %}
     ---
     - core switch
@@ -88,13 +85,13 @@ date:   2020-03-24
 <p>Caso contrário, você provavelmente nem deseja usar o YAML e talvez queira algo como JSON ou XML. Por exemplo, em um API, a legibilidade é quase irrelevante, a ênfase está na velocidade e no amplo suporte de software.</p>
 
 <p>Para o conhecimentos sobre os conceitos que envolve esse formato de dados, irei utilizar python para ler um arquivo .yml e no retornar um dicionário, essa é uma maneira poderosa de representar determinados tipos de dados.</p>
-
 {% highlight ruby %}
     ---
-    - core switch
-    - 6500
-    - false
-    - ['switchport', 'mode', 'access'] 
+    - juniper: EX9200
+    - cisco:   6500
+    - VMware:
+        - esxi
+        - vcenter
     
     # script python    
     import yaml
@@ -109,5 +106,37 @@ date:   2020-03-24
 <p>Na linha 2 indicamos o caminho no qual o será carregado o arquivo, o arquivo está sendo representado pelo atributo “f”.</p>
 
 <p>Na linha 4 foi criada uma variável chamada “result’, dentro dessa variável, inserimos a função load(), essa função carrega o módulo YAML e nos permite carregar a saída deste arquivo em um dicionário que está alocado na variável “result”. Abaixo mostra o arquivo .py sendo compilado e retornando um dicionário baseado na estrutura python.</p>
+{% highlight ruby %}
+    [{'juniper': 'EX9200'}, {'cisco', '6500'}, {'VMware': ['esxi', 'vcenter']}]
+{% endhighlight %}
+
+#### XML
+
+<p>Um overview rápido, o XML compartilha algumas semelhanças com o que vimos com o YAML. Por exemplo, é inerentemente hierárquico, podemos facilmente incorporar dados em uma construção pai:</p>
+{% highlight ruby %}
+    <device>
+        <vendor>Cisco</vendor>
+        <model>Nexus 7700</model>
+        <osver>NXOS 6.1</osver>
+    </device>
+{% endhighlight %}
+
+<p>Neste exemplo, o elemento <device> é considerado a raiz. Embora o espaçamento e o recuo não ẃ relevante para a validade do XML,. É também o pai dos elementos dentro dele: <vendor>, <model> e <osver>.</p>
+
+<p>Eles são chamados de filhos do elemento <device> e são considerados irmãos um do outro. Isso é muito conveniente para armazenar metadados sobre dispositivos de rede.</p>
+
+<p>Em um documento XML, pode haver várias instâncias da tag <device> (ou vários elementos <device>), talvez aninhadas em uma tag <devices> mais ampla.</p>
+
+<p>Dica: Os elementos XML também podem ser alocados como atributos, isso quer dizer que, quando uma informação contém alguns metadados associados, pode não ser apropriado utilizar elemento filho e sim, associá-lo como atributo.</p>
+{% highlight ruby %}
+    <devide type=”datacenter-switch” />
+{% endhighlight %}
+<p>Desde o início deste artigo, descrevemos os formatos de dados como permitindo que aplicativos - ou dispositivos, como dispositivos de rede - troquem informações de maneiras padronizadas.</p>
+
+<p>O XML é uma dessas maneiras padronizadas para troca de informações. No entanto, formatos de dados como XML não impõe que tipo de dados estão contidos nos vários campos e valores. Para garantir que o tipo certo de dados estejam alocados nos elementos XML corretos, temos a definição do esquema XML (XSD).</p>
+
+<p>O conceito deste esquema nada mais é que, é criado um arquivo .xsd e gerar um código python a partir deste arquivo, ao compilar, teremos o XML que precisamos.</p>
+
+<p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer no segmento de automação com base no avanço sobre o tema e conforme vão surgindo demandas.</p>
 
 <img src="{{ '/assets/img/touring.jpg' | prepend: site.baseurl }}" alt=""> 
