@@ -139,4 +139,4 @@ date:   2020-03-24
 
 <p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer no segmento de automação com base no avanço sobre o tema e conforme vão surgindo demandas.</p>
 
-<img src="{{ '/assets/img/touring.jpg' | prepend: site.baseurl }}" alt=""> 
+
