@@ -4,25 +4,23 @@ title:  "Network Programmability - Formatando dados com YAML e XML"
 date:   2020-03-24
 ---
 
-<p class="intro"><span class="dropcap">L</span>oNo artigo de hoje, iremos falar  dos conceitos por trás das linguagens de estrutura e formatos de dados, como YAML e XML. Pegue seu café, se acomode e vamos nessa!
+<p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos falar  dos conceitos por trás das linguagens de estrutura e formatos de dados, como YAML e XML. Pegue seu café, se acomode e vamos nessa! Até hoje, nós da área de infraestrutura não precisávamos saber programar. Ok, o conhecimento em linguagens de programação  é muito útil para automatizarmos tarefas e rotinas comuns de testes, mas nunca foi um grande requisito no currículo de um CCNP.</p>
 
-Até hoje, nós da área de infraestrutura não precisávamos saber programar. Ok, o conhecimento em linguagens de programação  é muito útil para automatizarmos tarefas e rotinas comuns de testes, mas nunca foi um grande requisito no currículo de um CCNP.</p>
+<p>Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.</p>
 
-Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.
-
-Ao citar a linguagem XML, o exemplo mais comum no mundo de network é que o JunOS estrutura os dados que o SO utiliza via linguagem XML. Ex - Basta setarmos o comando > show isis adjacency detail | display xml rpc que ele nos mostrará a saída descrita abaixo.
+<p>Ao citar a linguagem XML, o exemplo mais comum no mundo de network é que o JunOS estrutura os dados que o SO utiliza via linguagem XML. Ex - Basta setarmos o comando > show isis adjacency detail | display xml rpc que ele nos mostrará a saída descrita abaixo.</p>
 
 {% highlight ruby %}
-<rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
-    <rpc>
-        <get-isis-adjacency-information>
-            <detail/>
-        </get-isis-adjacency-information>
-    </rpc>
-    <cli>
-        <banner></banner>
-    </cli>
-</rpc-reply>
+    <rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
+        <rpc>
+            <get-isis-adjacency-information>
+                <detail/>
+            </get-isis-adjacency-information>
+        </rpc>
+        <cli>
+            <banner></banner>
+        </cli>
+    </rpc-reply>
 {% endhighlight %}
 
 
