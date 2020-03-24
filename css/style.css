@@ -829,7 +829,8 @@ POST STYLING
 .post .postTitle {
   text-align: center;
   margin-top: 2rem;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  width: 100%; }
 
 .post blockquote {
   clear: both;
