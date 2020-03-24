@@ -1,5 +1,6 @@
 ---
 layout: post
+<img src="{{ '/assets/img/netde.jpg' | prepend: site.baseurl }}" alt=""> 
 title: "Network Programmability - Formatando dados com YAML e XML"
 date:   2020-03-24
 ---
