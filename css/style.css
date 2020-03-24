@@ -1044,7 +1044,7 @@ GLOBAL STYLES
 HOMEPAGE STYLING
 ***************/
   #home .posts, #home .pageTitle, #home .pagination {
-    width: 100%;
+    width: 75%;
     float: none;
     margin: 0 auto 1.5em; }
   #home .pageTitle {
@@ -1104,7 +1104,7 @@ MENU STYLING
 POST STYLING
 ***************/
   .post h1, .post h2, .post h3, .post h4, .post h5, .post h6, .post p, .post ul, .post ol, .post dl, .post .pageTitle {
-    width: 100%;
+    width: 150%;
     float: none;
     margin: 0 auto 2rem; }
   .post h1, .post .h1, .post h2, .post .h2, .post h3, .post .h3, .post h4, .post .h4, .post h5, .post .h5, .post h6, .post .h6 {
