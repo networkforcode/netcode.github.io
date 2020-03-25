@@ -51,13 +51,13 @@ date:   2020-03-22
 <p>Esse é um grande motivo pelo qual um número crescente de ferramentas está usando o YAML como um método para definir um fluxo de trabalho de automação ou fornecer um conjunto de dados para trabalhar (como uma lista de VLANs). É muito fácil usar o YAML para ir de zero a um funcional fluxo de trabalho de automação ou para definir os dados que você deseja enviar para um dispositivo de rede.</p>
 
 <p>Na imagem descrita abaixo, percebe-se que no início contém três hifens, isso significa que todo início de um código .yml deve conter os três hifens.</p>
-{% for contributor in site.github.contributors %}
+{: .fs-6 .fw-300 }
     ---
     - core switch
     - 6500
     - false
     - ['switchport', 'mode', 'access'] 
-{% endfor %}
+{:toc}
 <p>Os três hifens também servirá para você declarar outras instâncias e assim indicar vários documentos dentro de um arquivo ou fluxo de dados.</p>
 
 <p>Percebe-se que o YAML imita a arquitetura do python, dessa forma obtemos vantagem ao trabalhar com os dois juntos. No exemplo acima, temos uma lista que indica quatro itens, cada item e um tipo totalmente exclusivo.</p>
