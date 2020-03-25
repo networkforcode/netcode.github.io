@@ -84,7 +84,7 @@ date:   2020-03-22
 <p>Caso contrário, você provavelmente nem deseja usar o YAML e talvez queira algo como JSON ou XML. Por exemplo, em um API, a legibilidade é quase irrelevante, a ênfase está na velocidade e no amplo suporte de software.</p>
 
 <p>Para o conhecimentos sobre os conceitos que envolve esse formato de dados, irei utilizar python para ler um arquivo .yml e no retornar um dicionário, essa é uma maneira poderosa de representar determinados tipos de dados.</p>
-{% highlight ruby %}
+{%highlight ruby%}
     ---
     - juniper: EX9200
     - cisco:   6500
@@ -98,7 +98,7 @@ date:   2020-03-22
         result = yaml.load(f)
         print(result)
         type(result)
-{% endhighlight %}
+{%endhighlight%}
 <p>O primeiro script está descrito o código em YAML, abaixo dee, foi atribuído alguns parâmetros em python para abrir este arquivo .yml e nos retornar um dicionário em python ao ser compilado.</p>
 
 <p>Na linha 2 indicamos o caminho no qual o será carregado o arquivo, o arquivo está sendo representado pelo atributo “f”.</p>
