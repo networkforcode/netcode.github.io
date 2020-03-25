@@ -1,10 +1,10 @@
 ---
 layout: post 
-title: "Network Programmability - Formatando dados com YAML e XML"
+title: "Network Programmability"
 date:   2020-03-24
 ---
-<img src="{{ '/assets/img/touring1.jpg' | prepend: site.baseurl }}" alt=""> 
 
+## Formatando dados com YAML e XML
 <p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos falar  dos conceitos por trás das linguagens de estrutura e formatos de dados, como YAML e XML. Pegue seu café, se acomode e vamos nessa! Até hoje, nós da área de infraestrutura não precisávamos saber programar. Ok, o conhecimento em linguagens de programação  é muito útil para automatizarmos tarefas e rotinas comuns de testes, mas nunca foi um grande requisito no currículo de um CCNP.</p>
 
 <p>Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.</p>
@@ -22,7 +22,6 @@ date:   2020-03-24
         </cli>
     </rpc-reply>
 {% endhighlight %}
-
 <p>Vale ressaltar que existe inúmeros formatos de estrutura de dados a nossa disposição, devemos entender o propósito de cada modelo de dados, cada um foi criado para um caso diferente.</p>
 
 <p>Depois de entender os formatos de dados nos quais irei detalhar melhor a seguir, é importante compreender quais tipos de dados podem ser representados pelos formatos dos quais serão ditos neste artigo. O objetivo das linguagens de estruturação de dados é fazer com que, números, palavras e até complexos objetos de instância de software se comuniquem.</p>
@@ -59,7 +58,6 @@ date:   2020-03-24
     - false
     - ['switchport', 'mode', 'access'] 
 {% endhighlight %}
-
 <p>Os três hifens também servirá para você declarar outras instâncias e assim indicar vários documentos dentro de um arquivo ou fluxo de dados.</p>
 
 <p>Percebe-se que o YAML imita a arquitetura do python, dessa forma obtemos vantagem ao trabalhar com os dois juntos. No exemplo acima, temos uma lista que indica quatro itens, cada item e um tipo totalmente exclusivo.</p>
@@ -80,7 +78,6 @@ date:   2020-03-24
     {juniper: EX9200, cisco: 6500,
      VMware: ['esxi', 'vcenter']}
 {% endhighlight %}
-
 <p>Na imagem acima representamos dois tipos de dicionário, a maioria dos analisadores interpretará esses dois documentos YAML exatamente da mesma forma, mas o primeiro é obviamente muito mais legível. Se você estiver procurando por um mais legível por humanos, use as opções mais detalhadas.</p>
 
 <p>Caso contrário, você provavelmente nem deseja usar o YAML e talvez queira algo como JSON ou XML. Por exemplo, em um API, a legibilidade é quase irrelevante, a ênfase está na velocidade e no amplo suporte de software.</p>
@@ -101,7 +98,6 @@ date:   2020-03-24
         print(result)
         type(result)
 {% endhighlight %}
-
 <p>O primeiro script está descrito o código em YAML, abaixo dee, foi atribuído alguns parâmetros em python para abrir este arquivo .yml e nos retornar um dicionário em python ao ser compilado.</p>
 
 <p>Na linha 2 indicamos o caminho no qual o será carregado o arquivo, o arquivo está sendo representado pelo atributo “f”.</p>
@@ -110,7 +106,6 @@ date:   2020-03-24
 {% highlight ruby %}
  [{'juniper': 'EX9200'}, {'cisco', '6500'}, {'VMware': ['esxi', 'vcenter']}]
 {% endhighlight %}
-
 #### XML
 
 <p>Um overview rápido, o XML compartilha algumas semelhanças com o que vimos com o YAML. Por exemplo, é inerentemente hierárquico, podemos facilmente incorporar dados em uma construção pai:</p>
@@ -139,5 +134,7 @@ date:   2020-03-24
 <p>O conceito deste esquema nada mais é que, é criado um arquivo .xsd e gerar um código python a partir deste arquivo, ao compilar, teremos o XML que precisamos.</p>
 
 <p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer no segmento de automação com base no avanço sobre o tema e conforme vão surgindo demandas.</p>
+
+<img src="{{ '/assets/img/touring1.jpg' | prepend: site.baseurl }}" alt=""> 
 
 
