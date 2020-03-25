@@ -11,7 +11,7 @@ date:   2020-03-22
 <p>Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.</p>
 
 <p>Ao citar a linguagem XML, o exemplo mais comum no mundo de network é que o JunOS estrutura os dados que o SO utiliza via linguagem XML. Ex - Basta setarmos o comando > show isis adjacency detail | display xml rpc que ele nos mostrará a saída descrita abaixo.</p>
-{% highlight ruby %}
+{%highlight ruby%}
     <rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
         <rpc>
             <get-isis-adjacency-information>
@@ -22,7 +22,7 @@ date:   2020-03-22
             <banner></banner>
         </cli>
     </rpc-reply>
-{% endhighlight %}
+{%endhighlight%}
 <p>Vale ressaltar que existe inúmeros formatos de estrutura de dados a nossa disposição, devemos entender o propósito de cada modelo de dados, cada um foi criado para um caso diferente.</p>
 
 <p>Depois de entender os formatos de dados nos quais irei detalhar melhor a seguir, é importante compreender quais tipos de dados podem ser representados pelos formatos dos quais serão ditos neste artigo. O objetivo das linguagens de estruturação de dados é fazer com que, números, palavras e até complexos objetos de instância de software se comuniquem.</p>
@@ -52,13 +52,13 @@ date:   2020-03-22
 <p>Esse é um grande motivo pelo qual um número crescente de ferramentas está usando o YAML como um método para definir um fluxo de trabalho de automação ou fornecer um conjunto de dados para trabalhar (como uma lista de VLANs). É muito fácil usar o YAML para ir de zero a um funcional fluxo de trabalho de automação ou para definir os dados que você deseja enviar para um dispositivo de rede.</p>
 
 <p>Na imagem descrita abaixo, percebe-se que no início contém três hifens, isso significa que todo início de um código .yml deve conter os três hifens.</p>
-{% highlight ruby %}
+{%highlight ruby%}
     ---
     - core switch
     - 6500
     - false
     - ['switchport', 'mode', 'access'] 
-{% endhighlight ruby %}
+{%endhighlight%}
 <p>Os três hifens também servirá para você declarar outras instâncias e assim indicar vários documentos dentro de um arquivo ou fluxo de dados.</p>
 
 <p>Percebe-se que o YAML imita a arquitetura do python, dessa forma obtemos vantagem ao trabalhar com os dois juntos. No exemplo acima, temos uma lista que indica quatro itens, cada item e um tipo totalmente exclusivo.</p>
@@ -68,7 +68,7 @@ date:   2020-03-22
 <p>Por exemplo, você pode escrever False, como no exemplo acima, ou você poderia escrever não, desligado ou simplesmente n. Todos eles acabam significando a mesma coisa: um valor booleano falso. Esta é uma grande razão pela qual o YAML é frequentemente usado como uma interface humana para muitos softwares.</p>
 
 <p>O exemplo a seguir iremos nos referir nos formatos de dicionário que contém nessa linguagem.</p>
-{% highlight ruby %}
+{%highlight ruby%}
     ---
     - core switch
     - 6500
@@ -78,7 +78,7 @@ date:   2020-03-22
     ---
     {juniper: EX9200, cisco: 6500,
      VMware: ['esxi', 'vcenter']}
-{% endhighlight ruby %}
+{%endhighlight%}
 <p>Na imagem acima representamos dois tipos de dicionário, a maioria dos analisadores interpretará esses dois documentos YAML exatamente da mesma forma, mas o primeiro é obviamente muito mais legível. Se você estiver procurando por um mais legível por humanos, use as opções mais detalhadas.</p>
 
 <p>Caso contrário, você provavelmente nem deseja usar o YAML e talvez queira algo como JSON ou XML. Por exemplo, em um API, a legibilidade é quase irrelevante, a ênfase está na velocidade e no amplo suporte de software.</p>
