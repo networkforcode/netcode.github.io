@@ -68,7 +68,7 @@ date:   2020-03-22
 <p>Por exemplo, você pode escrever False, como no exemplo acima, ou você poderia escrever não, desligado ou simplesmente n. Todos eles acabam significando a mesma coisa: um valor booleano falso. Esta é uma grande razão pela qual o YAML é frequentemente usado como uma interface humana para muitos softwares.</p>
 
 <p>O exemplo a seguir iremos nos referir nos formatos de dicionário que contém nessa linguagem.</p>
-{% highlight javascript linenos %}
+<pre>
     ---
     - core switch
     - 6500
@@ -78,7 +78,7 @@ date:   2020-03-22
     ---
     {juniper: EX9200, cisco: 6500,
      VMware: ['esxi', 'vcenter']}
-{% endhighlight %}
+</pre>
 <p>Na imagem acima representamos dois tipos de dicionário, a maioria dos analisadores interpretará esses dois documentos YAML exatamente da mesma forma, mas o primeiro é obviamente muito mais legível. Se você estiver procurando por um mais legível por humanos, use as opções mais detalhadas.</p>
 
 <p>Caso contrário, você provavelmente nem deseja usar o YAML e talvez queira algo como JSON ou XML. Por exemplo, em um API, a legibilidade é quase irrelevante, a ênfase está na velocidade e no amplo suporte de software.</p>
@@ -110,13 +110,13 @@ date:   2020-03-22
 #### XML
 
 <p>Um overview rápido, o XML compartilha algumas semelhanças com o que vimos com o YAML. Por exemplo, é inerentemente hierárquico, podemos facilmente incorporar dados em uma construção pai:</p>
-{% highlight ruby %}
+{%highlight ruby%}
     <device>
         <vendor>Cisco</vendor>
         <model>Nexus 7700</model>
         <osver>NXOS 6.1</osver>
     </device>
-{% endhighlight %}
+{%endhighlight%}
 
 <p>Neste exemplo, o elemento <device> é considerado a raiz. Embora o espaçamento e o recuo não ẃ relevante para a validade do XML,. É também o pai dos elementos dentro dele: <vendor>, <model> e <osver>.</p>
 
@@ -125,9 +125,9 @@ date:   2020-03-22
 <p>Em um documento XML, pode haver várias instâncias da tag <device> (ou vários elementos <device>), talvez aninhadas em uma tag <devices> mais ampla.</p>
 
 <p>Dica: Os elementos XML também podem ser alocados como atributos, isso quer dizer que, quando uma informação contém alguns metadados associados, pode não ser apropriado utilizar elemento filho e sim, associá-lo como atributo.</p>
-{% highlight ruby %}
+{%highlight ruby%}
     <devide type=”datacenter-switch” />
-{% endhighlight %}
+{%endhighlight%}
 <p>Desde o início deste artigo, descrevemos os formatos de dados como permitindo que aplicativos - ou dispositivos, como dispositivos de rede - troquem informações de maneiras padronizadas.</p>
 
 <p>O XML é uma dessas maneiras padronizadas para troca de informações. No entanto, formatos de dados como XML não impõe que tipo de dados estão contidos nos vários campos e valores. Para garantir que o tipo certo de dados estejam alocados nos elementos XML corretos, temos a definição do esquema XML (XSD).</p>
