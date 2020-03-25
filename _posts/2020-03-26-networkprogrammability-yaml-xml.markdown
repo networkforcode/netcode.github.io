@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: "Network Programmability - YAML e XML"
+title: "Network Programmability - YAML e XMLs"
 date:   2020-03-25
 ---
 ---
