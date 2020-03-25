@@ -1,7 +1,7 @@
 ---
 layout: post 
 title: "Network Programmability - YAML e XML"
-date:   2020-03-22
+date:   2020-03-26
 ---
 ---
 
