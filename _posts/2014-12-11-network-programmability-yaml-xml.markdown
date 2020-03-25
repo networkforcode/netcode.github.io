@@ -52,7 +52,7 @@ date:   2020-03-22
 <p>Esse é um grande motivo pelo qual um número crescente de ferramentas está usando o YAML como um método para definir um fluxo de trabalho de automação ou fornecer um conjunto de dados para trabalhar (como uma lista de VLANs). É muito fácil usar o YAML para ir de zero a um funcional fluxo de trabalho de automação ou para definir os dados que você deseja enviar para um dispositivo de rede.</p>
 
 <p>Na imagem descrita abaixo, percebe-se que no início contém três hifens, isso significa que todo início de um código .yml deve conter os três hifens.</p>
-{% highlight ruby %}
+{% highlight scss %}
     ---
     - core switch
     - 6500
@@ -68,7 +68,7 @@ date:   2020-03-22
 <p>Por exemplo, você pode escrever False, como no exemplo acima, ou você poderia escrever não, desligado ou simplesmente n. Todos eles acabam significando a mesma coisa: um valor booleano falso. Esta é uma grande razão pela qual o YAML é frequentemente usado como uma interface humana para muitos softwares.</p>
 
 <p>O exemplo a seguir iremos nos referir nos formatos de dicionário que contém nessa linguagem.</p>
-{% highlight ruby %}
+{% highlight javascript linenos %}
     ---
     - core switch
     - 6500
