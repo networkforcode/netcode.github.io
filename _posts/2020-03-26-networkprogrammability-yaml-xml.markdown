@@ -116,11 +116,11 @@ date:   2020-03-26
     </device>
 {%endhighlight%}
 
-<p>Neste exemplo, o elemento <device> é considerado a raiz. Embora o espaçamento e o recuo não seria relevante para a validade do XML. É também o pai dos elementos dentro dele: vendor, model e osver.
+<p>Neste exemplo, o elemento "device" é considerado a raiz. Embora o espaçamento e o recuo não seria relevante para a validade do XML. É também o pai dos elementos dentro dele, são eles, vendor, model e osver.</p>
 
-Eles são chamados de filhos do elemento <device> e são considerados irmãos um do outro. Isso é muito conveniente para armazenar metadados sobre dispositivos de rede.
+<p>Eles são chamados de filhos do elemento <device> e são considerados irmãos um do outro. Isso é muito conveniente para armazenar metadados sobre dispositivos de rede.</p>
 
-Em um documento XML, pode haver várias instâncias da tag <device> (ou vários elementos <device>), talvez aninhadas em uma tag <devices> mais ampla.</p>
+<p>Em um documento XML, pode haver várias instâncias da tag "device" (ou vários elementos "device"), talvez aninhadas em uma tag "devices" mais ampla.</p>
 
 <p>Dica: Os elementos XML também podem ser alocados como atributos, isso quer dizer que, quando uma informação contém alguns metadados associados, pode não ser apropriado utilizar elemento filho e sim, associá-lo como atributo.</p>
 {%highlight ruby%}
