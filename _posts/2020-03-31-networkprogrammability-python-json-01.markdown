@@ -185,7 +185,7 @@ except Exception as e:
 <p> Iremos analisar outro bloco try:</p>
 {%highlight ruby%}
  try: 
-  net_connect = ConnectHandler (**cisco_881)
+  net_connect = ConnectHandler (**SW_CORE)
   net_connect.enable() 
 
   stps = net_connect.send_command('show spanning-tree', use_textfsm=True)
