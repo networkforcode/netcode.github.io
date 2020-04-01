@@ -4,7 +4,7 @@ title: "Network Programmability - Manipulando dados JSON com Python"
 date:   2020-03-31
 ---
 
-<p class="intro"><span class="dropcap">N</span>o artigo de hoje, {%highlight ruby%} sudo pip install netmiko {%endhighlight%} iremos falar  dos conceitos por debaixo dos panos quando citamos Json como linguagem de estrutura e formatos de dados. Pegue seu café, se acomode e vamos nessa!</p>
+<p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos falar  dos conceitos por debaixo dos panos quando citamos Json como linguagem de estrutura e formatos de dados. Pegue seu café, se acomode e vamos nessa!</p>
 
 <p>Para darmos ênfase neste artigo, iremos instalar no nosso ambiente python a biblioteca netmiko com o seguinte comando:</p>
 {%highlight ruby%}
