@@ -92,5 +92,5 @@ except Exception as e:
   Ethernet0/2 IS DOWN!
   Ethernet0/3 IS DOWN!
 {%endhighlight%}
-<p>Essa é a maneira que manipulamos dados Json com python. Neste artigo mostramos como trabalhar com Json e python utilizando.</p>
+<p>Essa é a maneira que manipulamos dados Json com python. Neste artigo mostramos como trabalhar com Json e python. E aí, o que achou deste artigo? Dê um pulo em nosso <a href="https://www.linkedin.com/in/thiago-porfirio/">Linkedin</a>Linkedin para ficar por dentro de novas publicações, vai ser legal contar com sua presença por lá.</p>
 
