@@ -122,7 +122,7 @@ except Exception as e:
 {%endhighlight%}
 <p> Esse retorno acima trás os parâmetro que queremos ver no comando "show spanning-tree".</p>
 
-<p>Essa é a maneira que manipulamos dados Json com python. Neste artigo mostramos como trabalhar com Json e python. E aí, o que achou deste artigo? Dê um pulo em nosso <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">Linkedin</a> para ficar por dentro de novas publicações, vai ser legal contar com sua presença por lá.</p>
+<p>Essa é a maneira que manipulamos dados Json com python. Neste artigo mostramos como trabalhar com Json e python. E aí, o que achou deste artigo? Dá um pulo lá no nosso <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">Linkedin</a> para ficar por dentro de novas publicações, vai ser legal contar com sua presença por lá.</p>
 
 
 
