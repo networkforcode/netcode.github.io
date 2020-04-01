@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: "Network Programmability - Manipulamdo dados JSON com Python"
+title: "Network Programmability - Manipulando dados JSON com Python"
 date:   2020-03-31
 ---
 
@@ -20,12 +20,14 @@ date:   2020-03-31
 
 user = os.environ.get('username')
 pw = os.environ.get('password')
+sec = os.environ.get('secret')
 
 SW_CORE = {
     'device_type': 'cisco_ios', 
     'host':   '192.168.36.12',
     'username': 'teste',
     'password': 'teste',
+    'secret': 'teste', 
     'port' : 22
 }
 {% endhighlight %}
@@ -92,5 +94,37 @@ except Exception as e:
   Ethernet0/2 IS DOWN!
   Ethernet0/3 IS DOWN!
 {%endhighlight%}
+<p> Iremos analisar outro bloco try:</p>
+{%highlight ruby%}
+ try: 
+  net_connect = ConnectHandler (**cisco_881)
+  net_connect.enable() 
+
+  stps = net_connect.send_command('show spanning-tree', use_textfsm=True)
+  print(json.dumps(stps, indent=2))
+  for stp in stps:
+     print(' ') # Espaçamento das linhas
+        # printando os parâmetros da saída da CLI. queremos definir a vlan que a interface pertence e se a interface está em modo de designated.
+     print(f"{stp['interface']}.{stp['vlan_id']} is currently in role {stp['role']} ")
+    
+except Exception as e: 
+    print(e)
+{%endhighlight%}
+<p>No bloco "try" acima, queremos printar os parâmetros da CLI baseado no comando "show spanning-tree". Queremos que esse bloco nos traga o retorno de que, Deverá ser definido a VLAN que a interface pertence e também trazer a informação de que a interface está em modo designated.</p>
+{%highlight ruby%}
+  Et0/0.1 is currently in role Desg 
+
+  Et0/1.1 is currently in role Desg 
+
+  Et0/2.1 is currently in role Desg 
+
+  Et0/3.1 is currently in role Desg 
+{%endhighlight%}
+<p> Esse retorno acima trás os parâmetro que queremos ver no comando "show spanning-tree"</p>
+
 <p>Essa é a maneira que manipulamos dados Json com python. Neste artigo mostramos como trabalhar com Json e python. E aí, o que achou deste artigo? Dê um pulo em nosso <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">Linkedin</a> para ficar por dentro de novas publicações, vai ser legal contar com sua presença por lá.</p>
+
+
+
+
 
