@@ -186,8 +186,7 @@ except Exception as e:
 {%highlight ruby%}
  try: 
   net_connect = ConnectHandler (**SW_CORE)
-  net_connect.enable() 
-
+  
   stps = net_connect.send_command('show spanning-tree', use_textfsm=True)
   print(json.dumps(stps, indent=2))
   for stp in stps:
