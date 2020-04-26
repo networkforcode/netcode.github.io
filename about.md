@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sobre o blog Network for Code
+title: Sobre o blog NetCode
 ---
 
 <div class="post">
