@@ -116,7 +116,7 @@ date:   2020-04-26
          llll
 ```
 
-```yaml
+```go
 ansible_connection: local
 ansible_network_os: eos
 # provider settings
