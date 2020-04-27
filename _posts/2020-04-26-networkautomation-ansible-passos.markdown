@@ -161,7 +161,7 @@ tasks:
 
 <p>Adicionamos apenas o hostname desses devices, o endereço desses devices estão alocados no arquivo /etc/hosts:</p>
 
-{%highlight ruby%}
+```bash
    127.0.0.1   localhost
 
    # The following lines are desirable for IPv6 capable hosts
@@ -178,16 +178,16 @@ tasks:
    192.168.36.211 SW_ACCESS_2
    192.168.36.212 SW_ACCESS_3
    192.168.36.213 SW_ACCESS_4
-{%endhighlight%}
+```
 
 <p>Note que os endereços estão sendo alocados direto no arquivo hosts do linux, arquivo onde é alocado endereços locais. Dessa forma podemos efetuar um ping descrevendo apenas o hostname que irá funcionar por que ele já é um endereço conhecido localmente:</p>
 
-{%highlight ruby%}
+```bash
     root@thiago:/home/thiago/Documentos/Code/Ansible# ping SW_ACCESS_1
     PING SW_ACCESS_1 (192.168.36.210) 56(84) bytes of data.
     64 bytes from SW_ACCESS_1 (192.168.36.210): icmp_seq=1 ttl=255 time=1.28 ms
     64 bytes from SW_ACCESS_1 (192.168.36.210): icmp_seq=2 ttl=255 time=1.29 ms
-{%endhighlight%}
+```
 
 <p>Este post é o primeiro de uma série de posts onde utilizaremos o ansible. Em um próximo post irei explicar como utilizar diversas funções para se trabalhar com ad-hoc commands.</p>
 
