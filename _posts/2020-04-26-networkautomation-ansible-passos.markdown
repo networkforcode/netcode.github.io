@@ -159,8 +159,8 @@ date:   2020-04-26
 
 <p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer utilizando essa ferramenta. Ficamos por aqui e nos vemos no próximo post.</p>
 
-```javascript
-ansible_connection: local
+---
+    ansible_connection: local
     ansible_network_os: eos
     # provider settings
     eapi:
@@ -181,4 +181,3 @@ ansible_connection: local
                string
            state: present
          provider: "{{ eapi }}"
-```
