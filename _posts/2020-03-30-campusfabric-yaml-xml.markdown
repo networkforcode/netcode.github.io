@@ -4,7 +4,7 @@ title: "Topologia Campus Fabric"
 date:   2020-03-30
 ---
 
-<p class="intro"><span class="dropcap">B</span>uenas Network for Code. Neste artigo vamos falar sobre um modelo de design que está em alta nas novas topologias de enterprise network. Fique à vontade para entrar em contato comigo pelo Linkedin, estamos todos aqui para aprendermos juntos.</p>
+<p class="intro"><span class="dropcap">B</span>uenas NetCode. Neste artigo vamos falar sobre um modelo de design que está em alta nas novas topologias de enterprise network. Fique à vontade para entrar em contato comigo pelo Linkedin, estamos todos aqui para aprendermos juntos.</p>
 
 <p>Vamos lá, esse conceito nada mais é que você centralizar sua topologia em apenas uma única gerência, essa gerência leva em consideração o uso do DNA CENTER (tratando-se de Cisco), o que roda por trás do DNA é o Apic. O uso dessa ferramenta de SDN é fazer com que, você só faz o uso do acesso manual a cada appliance quando ocorre uma falha muito crítica na qual o software não consegue resolver. O DNA faz o uso de sua gerência via interface web.</p>
 

@@ -1,135 +1,217 @@
 ---
 layout: post 
-title: "Network Programmability - YAML e XML"
-date:   2020-03-26
+title: "Network Programmability - Manipulando dados JSON com Python"
+date:   2020-03-31
 ---
 
-<p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos falar  dos conceitos por trás das linguagens de estrutura e formatos de dados, como YAML e XML. Pegue seu café, se acomode e vamos nessa! Até hoje, nós da área de infraestrutura não precisávamos saber programar. Ok, o conhecimento em linguagens de programação  é muito útil para automatizarmos tarefas e rotinas comuns de testes, mas nunca foi um grande requisito no currículo de um CCNP.</p>
+<p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos falar  dos conceitos por debaixo dos panos quando citamos Json como linguagem de estrutura e formatos de dados. Pegue seu café, se acomode e vamos nessa!</p>
 
-<p>Para darmos ênfase neste artigo, precisamos ressaltar alguns conceitos relacionados à estrutura e modelagem de dados.</p>
-
-<p>Ao citar a linguagem XML, o exemplo mais comum no mundo de network é que o JunOS estrutura os dados que o SO utiliza via linguagem XML. Ex - Basta setar o comando > show isis adjacency detail | display xml rpc que ele nos mostrará a saída descrita abaixo.</p>
+<p>Para darmos ênfase neste artigo, iremos instalar no nosso ambiente python a biblioteca netmiko com o seguinte comando:</p>
 {%highlight ruby%}
-   <rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
-        <rpc>
-            <get-isis-adjacency-information>
-                <detail/>
-            </get-isis-adjacency-information>
-        </rpc>
-        <cli>
-            <banner></banner>
-        </cli>
-    </rpc-reply>
+   $ sudo pip install netmiko
 {%endhighlight%}
-<p>Vale ressaltar que existe inúmeros formatos de estrutura de dados à nossa disposição, devemos entender o propósito de cada modelo de dados, cada um foi criado para um caso diferente.</p>
+<p>Neste artigo iremos trabalhar com as bibliotecas netmiko e TextFSM junto com a linguagem Json para estruturar os dados que iremos manipular.</p>
 
-<p>Depois de entender os formatos de dados nos quais irei detalhar melhor a seguir, é importante compreender quais tipos de dados podem ser representados pelos formatos dos quais serão ditos neste artigo. O objetivo das linguagens de estruturação de dados é fazer com que, números, palavras e até complexos objetos de instância de software se comuniquem.</p>
-
-#### String 
-
-<p>Indiscutivelmente, é o tipo de dado mais fundamental. Esse parâmetro é a maneira mais comum de representar uma sequência de números, letras ou símbolos. Caso você queira representar alguma frase em um determinado idioma em um dos formatos de estrutura de dados, provavelmente usará uma string para fazer isso. No python, você pode representar uma string através do parâmetro str ou unicode.</p>
-
-#### Integer
-
-<p>O parâmetro integer representa tipos de dados que contém valores numéricos, mas para maioria das pessoas, valores numéricos se baseiam em números inteiros. O número inteiro é exatamente aquilo que você aprendeu na escola – Um número inteiro, positivo ou negativo. Existe outro tipo de dado como float que você pode usar ao descrever valores não inteiros. Python utiliza o parâmetro int para declarar valores do tipo inteiro.</p>
-
-#### Boolean
-
-<p>Um dos tipos de dados mais simples é o booleano, um valor simples que é verdadeiro ou falso. Esse é um tipo muito popular usado quando um programador deseja saber o resultado de uma operação ou se dois valores são iguais um ao outro, por exemplo. Isso é conhecido como o tipo bool no python.</p>
-
-<p>Dica: Os Network Developers obtém uma estrutura de automação poderosa quando combinam scrpts python com formatos de dados JSON, XML ou YAML junto com as bibliotecas de automação.</p>
-
-### Linguagens de formatação de dados
-
-#### YAML
-
-<p>Esse formato de estrutura de dados é muito amigável aos olhos dos seres humanos. Se você comparar o YAML com outros formatos de dados que discutiremos como XML ou JSON, parece fazer a mesma coisa - Representa construções como listas, pares de valores-chave, sequências de caracteres e números inteiros.</p>
-
-<p>No entanto, como você verá em breve, o YAML faz isso de uma maneira excepcionalmente legível para humanos. O YAML é muito fácil de ler e escrever se você entender os tipos de dados básicos discutidos anteriormente.</p>
-
-<p>Esse é um grande motivo pelo qual um número crescente de ferramentas estão utilizando o YAML como um método para definir um fluxo de trabalho de automação ou fornecer um conjunto de dados para trabalhar (como uma lista de VLANs). É muito fácil usar o YAML para ir de zero a um funcional fluxo de trabalho de automação ou para definir os dados que você deseja enviar para um dispositivo de rede.</p>
-
-<p>Na imagem descrita abaixo, percebe-se que no início contém três hifens, isso significa que todo início de um código .yml deve conter os três hifens.</p>
+<p>Criaremos um arquivo teste01.py para manipularmos os parâmetros de saída de comandos “show”. Dentro desse arquivo iremos montar uma estrutura básica para alocar a biblioteca netmiko:</p>
 {%highlight ruby%}
-    ---
-    - core switch
-    - 6500
-    - false
-    - ['switchport', 'mode', 'access'] 
+ import os
+ import json
+ from netmiko import ConnectHandler
+
+user = os.environ.get('username')
+pw = os.environ.get('password')
+sec = os.environ.get('secret')
+
+SW_CORE = {
+    'device_type': 'cisco_ios', 
+    'host':   '192.168.36.12',
+    'username': 'teste',
+    'password': 'teste',
+    'secret': 'teste', 
+    'port' : 22
+}
 {% endhighlight %}
-<p>Os três hifens também servirá para você declarar outras instâncias e assim indicar vários documentos dentro de um arquivo ou fluxo de dados.</p>
+<p>A classe SW_CORE se refere ao dicionário que estamos criando, dentro desse dicionário iremos atribuir alguns atributos.</p>
 
-<p>Percebe-se que o YAML imita a arquitetura do python, dessa forma obtemos vantagem ao trabalhar com os dois juntos. No exemplo acima, temos uma lista que indica quatro itens, cada item e um tipo totalmente exclusivo.</p>
-
-<p>O primeiro item, core switch, é um tipo de string. O segundo, 6500, é interpretado como um número inteiro. O terceiro é interpretado como um booleano. Essa “interpretação" é executada por um intérprete YAML, como PyYAML. PyYAML, em específico, faz um bom trabalho ao se referir no tipo de dados que o usuário está tentando comunicar.</p>
-
-<p>Por exemplo, você pode escrever False, como no exemplo acima, ou você poderia escrever não, desligado ou simplesmente n. Todos eles acabam significando a mesma coisa: um valor booleano falso. Esta é uma grande razão pela qual o YAML é frequentemente usado como uma interface humana para muitos softwares.</p>
-
-<p>O exemplo a seguir iremos nos referir nos formatos de dicionário que contém nessa linguagem.</p>
+<p>device_type - se refere ao módulo do tipo de IOS que iremos interagir, esse módulo faz parte da lista dos módulos da biblioteca netmiko. Alocamos o módulo na estrutura de dicionário como um dos parâmetros que descreve o dispositivo que iremos interagir mais adiante.</p>
 {%highlight ruby%}
-    ---
-    - core switch
-    - 6500
-    - false
-    - ['switchport', 'mode', 'access'] 
-    
-    ---
-    {juniper: EX9200, cisco: 6500,
-     VMware: ['esxi', 'vcenter']}
+ CLASS_MAPPER_BASE = {
+    "a10": A10SSH,
+    "accedian": AccedianSSH,
+    "alcatel_aos": AlcatelAosSSH,
+    "alcatel_sros": NokiaSrosSSH,
+    "apresia_aeos": ApresiaAeosSSH,
+    "arista_eos": AristaSSH,
+    "aruba_os": ArubaSSH,
+    "avaya_ers": ExtremeErsSSH,
+    "avaya_vsp": ExtremeVspSSH,
+    "brocade_fastiron": RuckusFastironSSH,
+    "brocade_netiron": ExtremeNetironSSH,
+    "brocade_nos": ExtremeNosSSH,
+    "brocade_vdx": ExtremeNosSSH,
+    "brocade_vyos": VyOSSSH,
+    "checkpoint_gaia": CheckPointGaiaSSH,
+    "calix_b6": CalixB6SSH,
+    "ciena_saos": CienaSaosSSH,
+    "cisco_asa": CiscoAsaSSH,
+    "cisco_ios": CiscoIosSSH,
+    "cisco_nxos": CiscoNxosSSH,
+    "cisco_s300": CiscoS300SSH,
+    "cisco_tp": CiscoTpTcCeSSH,
+    "cisco_wlc": CiscoWlcSSH,
+    "cisco_xe": CiscoIosSSH,
+    "cisco_xr": CiscoXrSSH,
+    "cloudgenix_ion": CloudGenixIonSSH,
+    "coriant": CoriantSSH,
+    "dell_dnos9": DellForce10SSH,
+    "dell_force10": DellForce10SSH,
+    "dell_os6": DellDNOS6SSH,
+    "dell_os9": DellForce10SSH,
+    "dell_os10": DellOS10SSH,
+    "dell_powerconnect": DellPowerConnectSSH,
+    "dell_isilon": DellIsilonSSH,
+    "endace": EndaceSSH,
+    "eltex": EltexSSH,
+    "eltex_esr": EltexEsrSSH,
+    "enterasys": EnterasysSSH,
+    "extreme": ExtremeExosSSH,
+    "extreme_ers": ExtremeErsSSH,
+    "extreme_exos": ExtremeExosSSH,
+    "extreme_netiron": ExtremeNetironSSH,
+    "extreme_nos": ExtremeNosSSH,
+    "extreme_slx": ExtremeSlxSSH,
+    "extreme_vdx": ExtremeNosSSH,
+    "extreme_vsp": ExtremeVspSSH,
+    "extreme_wing": ExtremeWingSSH,
+    "f5_ltm": F5TmshSSH,
+    "f5_tmsh": F5TmshSSH,
+    "f5_linux": F5LinuxSSH,
+    "flexvnf": FlexvnfSSH,
+    "fortinet": FortinetSSH,
+    "generic_termserver": TerminalServerSSH,
+    "hp_comware": HPComwareSSH,
+    "hp_procurve": HPProcurveSSH,
+    "huawei": HuaweiSSH,
+    "huawei_vrpv8": HuaweiVrpv8SSH,
+    "ipinfusion_ocnos": IpInfusionOcNOSSSH,
+    "juniper": JuniperSSH,
+    "juniper_junos": JuniperSSH,
+    "juniper_screenos": JuniperScreenOsSSH,
+    "keymile": KeymileSSH,
+    "keymile_nos": KeymileNOSSSH,
+    "linux": LinuxSSH,
+    "mikrotik_routeros": MikrotikRouterOsSSH,
+    "mikrotik_switchos": MikrotikSwitchOsSSH,
+    "mellanox": MellanoxMlnxosSSH,
+    "mellanox_mlnxos": MellanoxMlnxosSSH,
+    "mrv_lx": MrvLxSSH,
+    "mrv_optiswitch": MrvOptiswitchSSH,
+    "netapp_cdot": NetAppcDotSSH,
+    "netscaler": NetscalerSSH,
+    "nokia_sros": NokiaSrosSSH,
+    "oneaccess_oneos": OneaccessOneOSSSH,
+    "ovs_linux": OvsLinuxSSH,
+    "paloalto_panos": PaloAltoPanosSSH,
+    "pluribus": PluribusSSH,
+    "quanta_mesh": QuantaMeshSSH,
+    "rad_etx": RadETXSSH,
+    "ruckus_fastiron": RuckusFastironSSH,
+    "ruijie_os": RuijieOSSSH,
+    "ubiquiti_edge": UbiquitiEdgeSSH,
+    "ubiquiti_edgeswitch": UbiquitiEdgeSSH,
+    "vyatta_vyos": VyOSSSH,
+    "vyos": VyOSSSH,
+}
 {%endhighlight%}
-<p>Na imagem acima representamos dois tipos de dicionário, a maioria dos analisadores interpretará esses dois documentos YAML exatamente da mesma forma, mas o primeiro é obviamente muito mais legível. Se você estiver procurando por um mais legível, utilize as opções mais detalhadas.</p>
+<p>host – Inserimos o IP de gerência do appliance que queremos interagir.</p>
 
-<p>Caso contrário, você provavelmente nem deseja usar o YAML e talvez queira algo como JSON ou XML. Por exemplo, em uma API, a legibilidade é quase irrelevante, a ênfase está na velocidade e no amplo suporte de software.</p>
+<p>username e password – Usuário local do appliance ou qualquer usuário que esteja cadastrado no radius.</p>
 
-<p>Para o conhecimentos sobre os conceitos que envolve esse formato de dados, irei utilizar python para ler um arquivo .yml e nos retornar um dicionário, essa é uma maneira poderosa de representar determinados tipos de dados.</p>
+<p>port – Iremos utilizar a porta 22 por que queremos acessar esse appliance via SSH.</p>
+
+<p>Depois de montarmos a estrutura básica de conexão, iremos chamar essa classe para os parâmetros acima serem executados:   </p>
 {%highlight ruby%}
-    ---
-    - juniper: EX9200
-    - cisco:   6500
-    - VMware:
-        - esxi
-        - vcenter
-    
-    # script python    
-    import yaml
-    with open("/home/thiago/yaml.yml") as f:
-        result = yaml.load(f)
-        print(result)
-        type(result)
+ try:
+	connect = ConnectHandler (**SW_CORE)
 {%endhighlight%}
-<p>O primeiro script está descrito em código YAML, abaixo dele, foi atribuído alguns parâmetros em python para abrir este arquivo .yml e nos retornar um dicionário ao ser compilado.</p>
 
-<p>Na segunda linha indicamos o caminho no qual será carregado o arquivo, o arquivo está sendo representado pelo atributo “f”.</p>
+A variável “connect” representa a classe SW_CORE, essa variável será usada como referência ao enviarmos comandos para o appliance. O parâmetro try serve para montarmos uma estrutura em bloco, dentro dessa estrutura iremos setar comandos, quem irá fazer essa execução é a função connect.send_command():
+{%highlight ruby%}
+output = connect.send_command('show ip int brief', use_textfsm=True)
+    print(json.dumps(output, indent=2))
+except Exception as e:
+    print(e)
+{%endhighlight%}
+<p>Dentro dessa função, inserimos o comando “show ip int br”, repare que o parâmetro ”use” atribuiu o módulo TextFSM para ser utilizado ao estruturar a saída do comando “show...” em linguagem Json.</p>
 
-<p>Na terceira linha foi criada uma variável chamada “result’, dentro dessa variável, inserimos a função load(), essa função carrega o módulo YAML e nos permite carregar a saída deste arquivo em um dicionário que está alocado na variável “result”. Abaixo mostra o arquivo .py sendo compilado e retornando um dicionário baseado na estrutura YAML.</p>
-{% highlight ruby %}
- [{'juniper': 'EX9200'}, {'cisco', '6500'}, {'VMware': ['esxi', 'vcenter']}]
+<p>Ao inserir a função “json.dumps()” dentro do parâmetro “print”, queremos fazer referência à variável “output” para ser estruturado em Json com o espaçamento entre linhas de 2 (indent=2) para temos uma melhor resolução ao lermos os elementos escritos em Json.</p>
+
+<p>Ao executar o arquivo teste01.py, tivemos a seguinte saída no terminal:</p>
+{% highlight ruby %} 
+ {
+    "intf": "Ethernet0/2",
+    "ipaddr": "unassigned",
+    "status": "administratively down",
+    "proto": "down"
+  },
+  {
+    "intf": "Ethernet0/3",
+    "ipaddr": "unassigned",
+    "status": "administratively down",
+    "proto": "down"
+  },
 {% endhighlight %}
-#### XML
+<p>Dessa forma conseguimos obter uma saída em Json, o que facilita muito ao querermos integrar nossa estrutura de comandos em formatos Json com ferramentas de automação.</p>
 
-<p>Um overview rápido, o XML compartilha algumas semelhanças com o que vimos com o YAML. Por exemplo, é inerentemente hierárquico, podemos facilmente incorporar dados em uma construção pai:</p>
+<p>Para manipularmos essa estrutura Json, caso eu queira montar um relatório sobre as interfaces de um ou mais appliances, iremos fazer a manipulação dos parâmetros referente ao comando “show...” executado acima:</p>
 {%highlight ruby%}
-    <device>
-        <vendor>Cisco</vendor>
-        <model>Nexus 7700</model>
-        <osver>NXOS 6.1</osver>
-    </device>
+ try:
+	connect = ConnectHandler (**SW_CORE)
+	interfaces = connect.send_command('show ip int brief', use_textfsm=True)
+	for interface in interfaces:
+        		if interface['status'] == 'administratively down':             
+             		print(f"{interface['intf']} IS DOWN!")
+except Exception as e:
+   print(e) 
 {%endhighlight%}
+<p>O script acima se refere que, definimos um atributo “interface” para representar a variável interfaces. Dentro desse atributo iremos brincar apenas com a lógica do parâmetro “if”.  Vale ressaltar que os parâmetros acima devem estar dentro do bloco “try”.</p>
 
-<p>Neste exemplo, o elemento "device" é considerado a raiz. Embora o espaçamento e o recuo não seria relevante para a validade do XML. É também o pai dos elementos dentro dele, são eles, vendor, model e osver.</p>
-
-<p>Eles são chamados de filhos do elemento "device" e são considerados irmãos um do outro. Isso é muito conveniente para armazenar metadados sobre dispositivos de rede.</p>
-
-<p>Em um documento XML, pode haver várias instâncias da tag "device" (ou vários elementos "device"), talvez aninhadas em uma tag "devices" mais ampla.</p>
-
-<p>Dica: Os elementos XML também podem ser alocados como atributos, isso quer dizer que, quando uma informação contém alguns metadados associados, pode não ser apropriado utilizar elemento filho e sim, associá-lo como atributo.</p>
+<p>Se o atributo interface que está representando a variável “interfaces” estiver com o parâmetro “status” (que faz parte do comando “show...”) em “administratively down”, printar a variável ”interface” junto com o parâmetro que queremos inserir algum argumento. No caso, queremos que a resposta desse script seja a interface sendo representada pelo argumento que definimos (IS DOWN!). Ao executar este arquivo, tivemos o seguinte resultado:</p>
 {%highlight ruby%}
-    <devide type=”datacenter-switch” />
+  Ethernet0/1 IS DOWN!
+  Ethernet0/2 IS DOWN!
+  Ethernet0/3 IS DOWN!
 {%endhighlight%}
-<p>Desde o início deste artigo, descrevemos os formatos de dados como permitindo que aplicativos - ou dispositivos, como dispositivos de rede - troquem informações de maneiras padronizadas.</p>
+<p> Iremos analisar outro bloco try:</p>
+{%highlight ruby%}
+ try: 
+  net_connect = ConnectHandler (**SW_CORE)
+  
+  stps = net_connect.send_command('show spanning-tree', use_textfsm=True)
+  print(json.dumps(stps, indent=2))
+  for stp in stps:
+     print(' ') # Espaçamento das linhas
+        # printando os parâmetros da saída da CLI. queremos definir a vlan que a interface pertence e se a interface está em modo de designated.
+     print(f"{stp['interface']}.{stp['vlan_id']} is currently in role {stp['role']} ")
+    
+except Exception as e: 
+    print(e)
+{%endhighlight%}
+<p>No bloco "try" acima, queremos printar os parâmetros da CLI baseado no comando "show spanning-tree". Queremos que esse bloco nos traga o retorno de que, Deverá ser definido a VLAN que a interface pertence e também trazer a informação de que a interface está em modo designated.</p>
+{%highlight ruby%}
+  Et0/0.1 is currently in role Desg 
 
-<p>O XML é uma dessas maneiras padronizadas para troca de informações. No entanto, formatos de dados como XML não impõe que tipo de dados estão contidos nos vários campos e valores. Para garantir que o tipo certo de dados estejam alocados nos elementos XML corretos, temos a definição do esquema XML (XSD).</p>
+  Et0/1.1 is currently in role Desg 
 
-<p>O conceito deste esquema nada mais é que, cria-se um arquivo .xsd, gera um código python a partir deste arquivo, ao compilar, teremos o XML que precisamos.</p>
+  Et0/2.1 is currently in role Desg 
 
-<p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer no segmento de automação com base no avanço sobre o tema e conforme vão surgindo demandas.</p>
+  Et0/3.1 is currently in role Desg 
+{%endhighlight%}
+<p> Esse retorno acima trás os parâmetro que queremos ver no comando "show spanning-tree".</p>
+
+<p>Essa é a maneira que manipulamos dados Json com python. Neste artigo mostramos como trabalhar com Json e python. E aí, o que achou deste artigo? Dá um pulo lá no nosso <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">Linkedin</a> para ficar por dentro de novas publicações, vai ser legal contar com sua presença por lá.</p>
+
+
+
+
+
