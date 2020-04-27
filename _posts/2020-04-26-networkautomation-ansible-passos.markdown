@@ -19,19 +19,6 @@ date:   2020-04-26
 
 <p>Você pode executar playbooks, inserindo apenas o caminho {%highlight ruby%} /usr/bin/ansibleou/usr/bin/ansible-playbook{%endhighlight%}. Vale ser ressaltado que a máquina deve possuir o python instalado, de preferência a versão 3.</p>
 
-{%highlight ruby%}
-   <rpc-reply xmlns:junos="http://xml.juniper.net/junos/16.1R1/junos">
-        <rpc>
-            <get-isis-adjacency-information>
-                <detail/>
-            </get-isis-adjacency-information>
-        </rpc>
-        <cli>
-            <banner></banner>
-        </cli>
-    </rpc-reply>
-{%endhighlight%}
-
 #### Managed nodes
 <p>São dispositivos de redes que não contém o ansible instalado e que possuí gerências ansible, ou seja, eles está abaixo do domínio ansible baseado em um ponto de control node. Esses devices gerenciáveis são dispositivos de rede em geral. São devices que você gerência via ansible, esses managed nodes são chamados de hosts.</p>
 
