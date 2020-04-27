@@ -15,7 +15,7 @@ date:   2020-04-26
 * Playbooks
 
 #### Control node
-<p>É um centro de controle onde você poderá executar o ansible na rede, não necessariamente você poderia executar em apenas uma máquina linux, mas em qualquer outra que tenha acesso aos dispositivos da rede via conexão SSH. Você pode executar playbooks inserindo apenas o caminho: 
+<p>É um centro de controle onde você poderá executar o ansible na rede, não necessariamente você poderia executar em apenas uma máquina linux, mas em qualquer outra que tenha acesso aos dispositivos da rede via conexão SSH. Você pode executar playbooks inserindo apenas o caminho:</p>
 {%highlight ruby%} 
     /usr/bin/ansibleou/usr/bin/ansible-playbook
 {%endhighlight%}
