@@ -95,27 +95,7 @@ date:   2020-04-26
 
 <p>Isso inclui todas as plataformas nas versões 2.4 e mais antigas e conexões HTTPS usando eapi na versão 2.5. Com uma conexão local, você deve usar um provider dicionário e incluir. Para este caso de uso, segue exemplo abaixo:</p>
 
-```yaml
-ansible_connection: local
-ansible_network_os: eos
-# provider settings
-eapi:
-  authorize: yes
-  auth_pass: " {{ secret_auth_pass }}"
-  port: 80
-  transport: eapi
-use_ssl: no
-    
-# E utiliza a eapi variávl em suas tarefas:
-tasks:
-  - name: provider demo with eos
-      eos_banner:
-         banner: motd
-         text: 
-            this is test of multiline string
-         state: present
-      provider: "{{ eapi }}" 
-```
+<img src="{{ '/assets/img/artigo03/img2.png' | prepend: site.baseurl }}" alt=""> 
 
 <p>Isso já é obsoleto, porém, ainda dar para utilizar dependendo da versão do ansible no qual você está trabalhando.</p>
 
@@ -159,7 +139,7 @@ tasks:
 
 <p>Note que os endereços estão sendo alocados direto no arquivo hosts do linux, arquivo onde é alocado endereços locais. Dessa forma podemos efetuar um ping descrevendo apenas o hostname que irá funcionar por que ele já é um endereço conhecido localmente:</p>
 
-```bash
+```
     root@thiago:/home/thiago/Documentos/Code/Ansible# ping SW_ACCESS_1
     PING SW_ACCESS_1 (192.168.36.210) 56(84) bytes of data.
     64 bytes from SW_ACCESS_1 (192.168.36.210): icmp_seq=1 ttl=255 time=1.28 ms
