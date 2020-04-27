@@ -6,8 +6,6 @@ date:   2020-04-26
 
 <p class="intro"><span class="dropcap">B</span>uenas NetCode. Neste artigo iremos abordar alguns conceitos sobre o ad-hoc, o ad-hoc nada mais é que, aplicar parâmetros para buscar informações nas quais você deseja fazer um diagnóstico rápido na sua rede sem precisar escrever um playbook.</p>
 
-<img src="{{ '/assets/img/lab3.jpg' | prepend: site.baseurl }}" alt=""> 
-
 #### Trabalhando com Ad-Hoc commands
 <p>Ao executar o seguinte comando "ansible SW_CORE_1 -m raw -a "show version" -u teste -k", tivemos o seguinte retorno:</p>
 
