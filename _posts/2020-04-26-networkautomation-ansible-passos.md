@@ -83,12 +83,13 @@ date:   2020-04-26
 
 #### Usando become para escalação de privilégios
 <p>A partir do Ansible 2.6 você pode usar o parâmetro Ansible de nível superior para executar uma tarefa em qualquer plataforma que suporta escalonamento de privilégio. Caso vocẽ esteja fazendo em control node para replicar nos managed nodes, o arquivo será semelhante ao:</p>
-{%highlight ruby%}
+
+```bash
     ansible_connection: network_cli
     ansible_network_os: ios
     ansible_become: yes
     ansible_become_method: enable
-{%endhighlight%} 
+```
 
 #### Playbooks herdados: authorize para escalação de privilégios
 <p>Caso estiver executando no Ansible 2.5 ou mais antigo, algumas plataformas de rede suportam escalação de privilégios, mas não conexões network_cli ou httpapi.</p>
