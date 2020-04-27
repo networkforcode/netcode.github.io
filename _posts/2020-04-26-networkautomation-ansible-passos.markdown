@@ -4,7 +4,7 @@ title: "Network Automation - Primeiros passos com Ansible"
 date:   2020-04-26
 ---
 
-<p class="intro"><span class="dropcap">B</span>uenas NetCode,  hoje iremos iniciar os primeiros passos nos conceitos por debaixo de uma ferramenta poderosa para automação chamada Ansible.</p>
+<p class="intro"><span class="dropcap">B</span>uenas NetCode,  hoje iremos iniciar os primeiros passos relacionados aos conceitos por debaixo de uma ferramenta poderosa para automação chamada Ansible.</p>
 
 <p>Os conceitos descritos abaixo são fundamentais para darmos ênfase no aprendizado em Ansible, pois, esses conceitos não se encaixam apenas em Network Automation:</p>
 * Control node
@@ -15,16 +15,18 @@ date:   2020-04-26
 * Playbooks
 
 #### Control node
-<p>É um centro de controle onde você poderá executar o ansible na rede, não necessariamente você poderia executar em apenas uma máquina linux, mas em qualquer outra que tenha acesso aos dispositivos da rede via conexão SSH.</p>
-
-<p>Você pode executar playbooks, inserindo apenas o caminho {%highlight ruby%} /usr/bin/ansibleou/usr/bin/ansible-playbook{%endhighlight%}. Vale ser ressaltado que a máquina deve possuir o python instalado, de preferência a versão 3.</p>
+<p>É um centro de controle onde você poderá executar o ansible na rede, não necessariamente você poderia executar em apenas uma máquina linux, mas em qualquer outra que tenha acesso aos dispositivos da rede via conexão SSH. Você pode executar playbooks inserindo apenas o caminho: 
+{%highlight ruby%} 
+    /usr/bin/ansibleou/usr/bin/ansible-playbook
+{%endhighlight%}
+<p>Vale ser ressaltado que a máquina deve possuir o python instalado, de preferência a versão 3.</p>
 
 #### Managed nodes
-<p>São dispositivos de redes que não contém o ansible instalado e que possuí gerências ansible, ou seja, eles está abaixo do domínio ansible baseado em um ponto de control node. Esses devices gerenciáveis são dispositivos de rede em geral. São devices que você gerência via ansible, esses managed nodes são chamados de hosts.</p>
+<p>São dispositivos de redes que não contém o ansible instalado e que possuí gerência ansible, ou seja, eles estão abaixo do domínio ansible baseado em um ponto de control node. Esses devices gerenciáveis são dispositivos de rede em geral. São devices que você gerencia via ansible, esses managed nodes são chamados de hosts.</p>
 
 #### Inventory
 
-<p>É uma lista onde contém números de managed nodes, nessa lista contém o endereço IP de cada hosts, um inventário também é considerado “hostfile” por conter um dimensionamento de diversos devices em apenas um inventario. Dentro desse inventário você pode organizar seus managed nodes, criando e alinhando-os em grupos para facilitar a distribuição de automação.</p>
+<p>É uma lista onde contém números de managed nodes, nessa lista contém o endereço IP de cada hosts, um inventário também é considerado “hostfile” por conter um dimensionamento de diversos devices em apenas um inventário. Dentro desse inventário você pode organizar seus managed nodes, criando e alinhando-os em grupos para facilitar a distribuição de automação.</p>
 
 #### Modules
 
@@ -36,9 +38,9 @@ date:   2020-04-26
 
 #### Playbooks
 
-<p>O playnook nada mais é que, listas ordenadas de tarefas, nessa lista contém tarefas em ordem. Nos playbooks pode incluir variáveis e tarefas, os playbooks são escritos em YAML e são fáceis de ler, escrever, compartilhar e entender.</p>
+<p>O playbook nada mais é que, listas ordenadas de tarefas, nessa lista contém tarefas em ordem. Nos playbooks pode incluir variáveis e tarefas, os playbooks são escritos em YAML e são fáceis de ler, escrever, compartilhar e entender.</p>
 
-<p>Agora que demos ênfase nos jargões comuns ao se trabalhar com ansible, iremos abordar conceitos mais aprofundado sobre control node:</p>
+<p>Agora que demos ênfase nos jargões comuns ao se trabalhar com ansible, iremos abordar conceitos mais aprofundados sobre control node:</p>
 * Execução de control node
 * Protocolos de comunicação múltiplos
 * Módulos organizados pela plataforma de rede
@@ -51,15 +53,13 @@ date:   2020-04-26
 #### Execução do control node
 <p>Os módulos dos devices de rede não são executados por eles próprios quando estão sendo utilizados via gerência ansible.</p>
 
-<pEsses módulos trabalham com comandos manuais e funções ad-hoc. Isso acontece pelo fato de que, a maioria dos módulos dos devices de redes não trabalham com python, diferente dos módulos Linux Unix. Esses devices passam a ser executados via próprio módulo de seu SO, porém, é executado direto no control node, os módulos de rede ansible são executados via ansible ou ansible-playbook.</p>
+<p>Esses módulos trabalham com comandos manuais e funções ad-hoc. Isso acontece pelo fato de que, a maioria dos módulos dos devices de redes não trabalham com python, diferente dos módulos Linux/Unix. Esses devices passam a ser executados via próprio módulo de seu SO, porém, é executado direto no control node, os módulos de rede ansible são executados via ansible ou ansible-playbook.</p>
 
-<p>Vale ressaltar que os módulos de rede alocado nos devices managed nodes trabalham com arquivos de backup direto no control node. No caso do linux, o arquivo de backup é gravado no mesmo diretório do próprio arquivo alterado.</p>
+<p>Vale ressaltar que os módulos de rede alocados nos devices managed nodes trabalham com arquivos de backup direto no control node. No caso do linux, o arquivo de backup é gravado no mesmo diretório do próprio arquivo alterado.</p>
 
 #### Protocolos de comunicação múltiplos
 <p>Como já sabemos, os módulos de rede são executados no control node e não nos managed nodes. Baseado nisso, o control node suporta protocolos de comunicação para enviar a execução para os managed nodes. São eles:</p>
-
 <img src="{{ '/assets/img/artigo03/img.png' | prepend: site.baseurl }}" alt=""> 
-
 <p>Vale ressaltar que cada módulo de rede suporta um tipo de protocolo de comunicação, alguns módulos suportam apenas um protocolo, alguns oferecem uma escolha de protocolos a serem utilizados.</p>
 
 <p>O protocolo mais comum utilizado é o CLI sobre SSH, para definir um protocolo de comunicação basta inserir o comando ansible_connection que seria uma variável.</p>
@@ -67,7 +67,7 @@ date:   2020-04-26
 <p>Dica: O tipo de conexão local não seria viável perante a versão mais recente do ansible, caso você esteja utilizando a versão 2.5, seria viável declarar essa variável de conexão.</p>
 
 #### Módulos organizados pela plataforma de rede
-<p>Vale ressaltar que uma plataforma de rede seria um conjunto de dispositivos de rede com um SO comum entre eles e que pode ser gerenciados por uma coleção de módulos. Os módulos para cada plataforma de rede compartilham um prefixo, por exemplo:</p>
+<p>Vale ressaltar que uma plataforma de rede seria um conjunto de dispositivos de rede com um SO comum entre eles e que podem ser gerenciados por uma coleção de módulos. Os módulos para cada plataforma de rede compartilham um prefixo, por exemplo:</p>
 
 * Arista – eos_
 * Cisco – ios_, iosxr_, nxos_
@@ -79,15 +79,17 @@ date:   2020-04-26
 
 #### Usando become para escalação de privilégios
 <p>A partir do Ansible 2.6 você pode usar o parâmetro Ansible de nível superior para executar uma tarefa em qualquer plataforma que suporta escalonamento de privilégio. Caso vocẽ esteja fazendo em control node para replicar nos managed nodes, o arquivo será semelhante ao:</p>
-* ansible_connection: network_cli
-* ansible_network_os: ios
-* ansible_become: yes
-* ansible_become_method: enable
+{%highlight ruby%}
+    ansible_connection: network_cli
+    ansible_network_os: ios
+    ansible_become: yes
+    ansible_become_method: enable
+{%endhighlight%} 
 
 #### Playbooks herdados: authorize para escalação de privilégios
 <p>Caso estiver executando no Ansible 2.5 ou mais antigo, algumas plataformas de rede suportam escalação de privilégios, mas não conexões network_cli ou httpapi.</p>
 
-<pIsso inclui todas as plataformas nas versões 2.4 e mais antigas e conexões HTTPS usandoeapina versão 2.5. Com umalocalconexão, você deve usar um provider dicionário e incluir. Para esse caso de uso, um arquivo se parece com:</p>
+<p>Isso inclui todas as plataformas nas versões 2.4 e mais antigas e conexões HTTPS usando eapi na versão 2.5. Com uma conexão local, você deve usar um provider dicionário e incluir. Para este caso de uso, segue exemplo abaixo:</p>
 {%highlight ruby%}
     ansible_connection: local
     ansible_network_os: eos
@@ -111,10 +113,10 @@ date:   2020-04-26
            state: present
          provider: "{{ eapi }}"
 {%endhighlight%}
-<p>Isso já é obsoleto, porém, ainda dar para se utilizar dependendo da versão do ansible no qual você está trabalhando.</p>
+<p>Isso já é obsoleto, porém, ainda dar para utilizar dependendo da versão do ansible no qual você está trabalhando.</p>
 
 #### Criando seu próprio arquivo hosts
-<p>Bom, esse arquivo hosts podemos criar em qualquer localização dentro de nossa máquina.. Esse arquivo é chamado de inventário, pois, nele adicionamos os hosts que queremos configurar. Vale ressaltar que o diretório no qual você está executando seu playbook, deverá conter também nesse diretório o arquivo hosts e o arquivo ansible.cfg, ou você pode centralizar esses arquivos em algum diretório e indicar o caminho deles nas variáveis de conexão dentro do playbook.</p>
+<p>Bom, esse arquivo hosts podemos criar em qualquer localização dentro de nossa máquina. Esse arquivo é chamado de inventário, pois, nele adicionamos os hosts que queremos configurar. Vale ressaltar que o diretório no qual você está executando seu playbook, deverá conter também nesse diretório o arquivo hosts e o arquivo ansible.cfg, ou você pode centralizar esses arquivos em algum diretório e indicar o caminho deles nas variáveis de conexão dentro do playbook.</p>
 
 <p>Abaixo é mostrado o arquivo hosts, note que adicionei dois grupos de hosts:</p>
 {% highlight ruby %}
@@ -127,7 +129,7 @@ date:   2020-04-26
    SW_ACCESS_3
    SW_ACCESS_4
 {% endhighlight %}
-<p>Adicionamos apenas o hostname desses devices, o endereço desses devices estão alocados no arquivo {%highlight ruby%} /etc/hosts {% endhighlight %}:</p>
+<p>Adicionamos apenas o hostname desses devices, o endereço desses devices estão alocados no arquivo /etc/hosts:</p>
 {%highlight ruby%}
    127.0.0.1   localhost
 
@@ -153,5 +155,6 @@ date:   2020-04-26
     64 bytes from SW_ACCESS_1 (192.168.36.210): icmp_seq=1 ttl=255 time=1.28 ms
     64 bytes from SW_ACCESS_1 (192.168.36.210): icmp_seq=2 ttl=255 time=1.29 ms
 {%endhighlight%}
+<p>Este post é o primeiro de uma série de posts onde utilizaremos o ansible. Em um próximo post irei explicar como utilizar diversas funções para se trabalhar com ad-hoc commands.</p>
 
-<p>##</p>
+<p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer utilizando essa ferramenta. Ficamos por aqui e nos vemos no próximo post.</p>
