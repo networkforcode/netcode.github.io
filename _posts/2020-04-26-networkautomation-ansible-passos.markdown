@@ -91,7 +91,7 @@ date:   2020-04-26
 
 <p>Isso inclui todas as plataformas nas versões 2.4 e mais antigas e conexões HTTPS usando eapi na versão 2.5. Com uma conexão local, você deve usar um provider dicionário e incluir. Para este caso de uso, segue exemplo abaixo:</p>
 
-```javascript
+```json
     ansible_connection: local
     ansible_network_os: eos
     # provider settings
@@ -116,7 +116,7 @@ date:   2020-04-26
          llll
 ```
 
-```go
+```php
 ansible_connection: local
 ansible_network_os: eos
 # provider settings
