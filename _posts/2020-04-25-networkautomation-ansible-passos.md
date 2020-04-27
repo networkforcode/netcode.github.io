@@ -6,8 +6,6 @@ date:   2020-04-26
 
 <p class="intro"><span class="dropcap">B</span>uenas NetCode,  hoje iremos iniciar os primeiros passos relacionados aos conceitos por debaixo de uma ferramenta poderosa para automação chamada Ansible.</p>
 
-<img src="{{ '/assets/img/lab2.jpg' | prepend: site.baseurl }}" alt=""> 
-
 <p>Os conceitos descritos abaixo são fundamentais para darmos ênfase no aprendizado em Ansible, pois, esses conceitos não se encaixam apenas em Network Automation:</p>
 * Control node
 * Managed nodes
