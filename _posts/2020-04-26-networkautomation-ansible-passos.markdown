@@ -90,7 +90,7 @@ date:   2020-04-26
 <p>Caso estiver executando no Ansible 2.5 ou mais antigo, algumas plataformas de rede suportam escalação de privilégios, mas não conexões network_cli ou httpapi.</p>
 
 <p>Isso inclui todas as plataformas nas versões 2.4 e mais antigas e conexões HTTPS usando eapi na versão 2.5. Com uma conexão local, você deve usar um provider dicionário e incluir. Para este caso de uso, segue exemplo abaixo:</p>
-(%highlight ruby%)
+{%highlight ruby%}
     ansible_connection: local
     ansible_network_os: eos
     # provider settings
@@ -112,7 +112,7 @@ date:   2020-04-26
                string
            state: present
          provider: "{{ eapi }}"
-(%endhighlight%)
+{%endhighlight%}
 <p>Isso já é obsoleto, porém, ainda dar para utilizar dependendo da versão do ansible no qual você está trabalhando.</p>
 
 #### Criando seu próprio arquivo hosts
