@@ -18,7 +18,7 @@ date:   2020-04-26
 <p>É um centro de controle onde você poderá executar o ansible na rede, não necessariamente você poderia executar em apenas uma máquina linux, mas em qualquer outra que tenha acesso aos dispositivos da rede via conexão SSH. Você pode executar playbooks inserindo apenas o caminho:</p>
 
 ```bash
-    /usr/bin/ansibleou/usr/bin/ansible-playbook
+/usr/bin/ansibleou/usr/bin/ansible-playbook
 ```
 
 <p>Vale ser ressaltado que a máquina deve possuir o python instalado, de preferência a versão 3.</p>
@@ -61,7 +61,9 @@ date:   2020-04-26
 
 #### Protocolos de comunicação múltiplos
 <p>Como já sabemos, os módulos de rede são executados no control node e não nos managed nodes. Baseado nisso, o control node suporta protocolos de comunicação para enviar a execução para os managed nodes. São eles:</p>
+
 <img src="{{ '/assets/img/artigo03/img.png' | prepend: site.baseurl }}" alt=""> 
+
 <p>Vale ressaltar que cada módulo de rede suporta um tipo de protocolo de comunicação, alguns módulos suportam apenas um protocolo, alguns oferecem uma escolha de protocolos a serem utilizados.</p>
 
 <p>O protocolo mais comum utilizado é o CLI sobre SSH, para definir um protocolo de comunicação basta inserir o comando ansible_connection que seria uma variável.</p>
@@ -93,32 +95,6 @@ date:   2020-04-26
 
 <p>Isso inclui todas as plataformas nas versões 2.4 e mais antigas e conexões HTTPS usando eapi na versão 2.5. Com uma conexão local, você deve usar um provider dicionário e incluir. Para este caso de uso, segue exemplo abaixo:</p>
 
-```javascript
-    ansible_connection: local
-    ansible_network_os: eos
-    # provider settings
-    eapi:
-        authorize: yes
-        auth_pass: " {{ secret_auth_pass }}"
-        port: 80
-        transport: eapi
-    use_ssl: no
-    
-    # E utiliza a eapi variávl em suas tarefas:
-    tasks:
-      - name: provider demo with eos
-         eos_banner:
-           banner: motd
-           text: 
-               this is test of multiline string
-           state: present
-         provider: ''{{ eapi }}''         
-         provider: {{ eapi }}
-         
-         }}}
-         llll
-```
-
 ```yaml
 ansible_connection: local
 ansible_network_os: eos
@@ -138,8 +114,7 @@ tasks:
          text: 
             this is test of multiline string
          state: present
-      provider: "{{ eapi }}"      
-      {{  }}
+      provider: "{{ eapi }}" 
 ```
 
 <p>Isso já é obsoleto, porém, ainda dar para utilizar dependendo da versão do ansible no qual você está trabalhando.</p>
@@ -153,6 +128,7 @@ tasks:
    [ansible_core]
    SW_CORE_1
    SW_CORE_2
+   
    [ansible_access]
    SW_ACCESS_1
    SW_ACCESS_2
