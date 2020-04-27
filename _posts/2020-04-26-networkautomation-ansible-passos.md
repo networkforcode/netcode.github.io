@@ -119,7 +119,7 @@ date:   2020-04-26
          llll
 ```
 
-```python
+```yaml
 ansible_connection: local
 ansible_network_os: eos
 # provider settings
@@ -139,7 +139,7 @@ tasks:
             this is test of multiline string
          state: present
       provider: "{{ eapi }}"      
-      "{{  }}"
+      {{  }}
 ```
 
 <p>Isso já é obsoleto, porém, ainda dar para utilizar dependendo da versão do ansible no qual você está trabalhando.</p>
