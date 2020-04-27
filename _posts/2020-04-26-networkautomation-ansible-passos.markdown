@@ -16,9 +16,11 @@ date:   2020-04-26
 
 #### Control node
 <p>É um centro de controle onde você poderá executar o ansible na rede, não necessariamente você poderia executar em apenas uma máquina linux, mas em qualquer outra que tenha acesso aos dispositivos da rede via conexão SSH. Você pode executar playbooks inserindo apenas o caminho:</p>
-{%highlight ruby%} 
+
+```bash
     /usr/bin/ansibleou/usr/bin/ansible-playbook
-{%endhighlight%}
+```
+
 <p>Vale ser ressaltado que a máquina deve possuir o python instalado, de preferência a versão 3.</p>
 
 #### Managed nodes
@@ -91,7 +93,7 @@ date:   2020-04-26
 
 <p>Isso inclui todas as plataformas nas versões 2.4 e mais antigas e conexões HTTPS usando eapi na versão 2.5. Com uma conexão local, você deve usar um provider dicionário e incluir. Para este caso de uso, segue exemplo abaixo:</p>
 
-```json
+```javascript
     ansible_connection: local
     ansible_network_os: eos
     # provider settings
@@ -116,7 +118,7 @@ date:   2020-04-26
          llll
 ```
 
-```php
+```yaml
 ansible_connection: local
 ansible_network_os: eos
 # provider settings
@@ -145,7 +147,8 @@ tasks:
 <p>Bom, esse arquivo hosts podemos criar em qualquer localização dentro de nossa máquina. Esse arquivo é chamado de inventário, pois, nele adicionamos os hosts que queremos configurar. Vale ressaltar que o diretório no qual você está executando seu playbook, deverá conter também nesse diretório o arquivo hosts e o arquivo ansible.cfg, ou você pode centralizar esses arquivos em algum diretório e indicar o caminho deles nas variáveis de conexão dentro do playbook.</p>
 
 <p>Abaixo é mostrado o arquivo hosts, note que adicionei dois grupos de hosts:</p>
-{% highlight ruby %}
+
+```bash
    [ansible_core]
    SW_CORE_1
    SW_CORE_2
@@ -154,8 +157,10 @@ tasks:
    SW_ACCESS_2
    SW_ACCESS_3
    SW_ACCESS_4
-{% endhighlight %}
+```
+
 <p>Adicionamos apenas o hostname desses devices, o endereço desses devices estão alocados no arquivo /etc/hosts:</p>
+
 {%highlight ruby%}
    127.0.0.1   localhost
 
@@ -174,13 +179,16 @@ tasks:
    192.168.36.212 SW_ACCESS_3
    192.168.36.213 SW_ACCESS_4
 {%endhighlight%}
+
 <p>Note que os endereços estão sendo alocados direto no arquivo hosts do linux, arquivo onde é alocado endereços locais. Dessa forma podemos efetuar um ping descrevendo apenas o hostname que irá funcionar por que ele já é um endereço conhecido localmente:</p>
+
 {%highlight ruby%}
     root@thiago:/home/thiago/Documentos/Code/Ansible# ping SW_ACCESS_1
     PING SW_ACCESS_1 (192.168.36.210) 56(84) bytes of data.
     64 bytes from SW_ACCESS_1 (192.168.36.210): icmp_seq=1 ttl=255 time=1.28 ms
     64 bytes from SW_ACCESS_1 (192.168.36.210): icmp_seq=2 ttl=255 time=1.29 ms
 {%endhighlight%}
+
 <p>Este post é o primeiro de uma série de posts onde utilizaremos o ansible. Em um próximo post irei explicar como utilizar diversas funções para se trabalhar com ad-hoc commands.</p>
 
 <p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer utilizando essa ferramenta. Ficamos por aqui e nos vemos no próximo post.</p>
