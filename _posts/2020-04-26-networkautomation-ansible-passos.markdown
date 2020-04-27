@@ -160,16 +160,25 @@ date:   2020-04-26
 <p>Esse é apenas o primeiro passo de um mundo de coisas que podemos fazer utilizando essa ferramenta. Ficamos por aqui e nos vemos no próximo post.</p>
 
 ```javascript
-const Razorpay = require('razorpay');
-
-let rzp = Razorpay({
-	key_id: 'KEY_ID',
-	secret: 'name'
-});
-
-// capture request
-rzp.capture(payment_id, cost)
-	.then(function (data) {
-		return 2;
-	})
+ansible_connection: local
+    ansible_network_os: eos
+    # provider settings
+    eapi:
+        authorize: yes
+        auth_pass: " {{ secret_auth_pass }}"
+        port: 80
+        transport: eapi
+    use_ssl: no
+    
+    # E utiliza a eapi variávl em suas tarefas:
+    tasks:
+      - name: provider demo with eos
+         eos_banner:
+           banner: motd
+           text: 
+               this is test
+               of multiline
+               string
+           state: present
+         provider: "{{ eapi }}"
 ```
