@@ -1,0 +1,11 @@
+---
+layout: post 
+title: "Network Automationc"
+date:   2020-04-27
+---
+
+<p class="intro"><span class="dropcap">B</span>uenas NetCode. Neste artigo iremos abordar alguns conceitos sobre o ad-hoc, o ad-hoc nada mais é que, aplicar parâmetros para buscar informações nas quais você deseja fazer um diagnóstico rápido na sua rede sem precisar escrever um playbook.</p>
+
+<img src="{{ '/assets/img/lab6.jpg' | prepend: site.baseurl }}" alt=""> 
+
+#### Trabalhando com Ad-Hoc commands
