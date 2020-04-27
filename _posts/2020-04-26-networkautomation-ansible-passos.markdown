@@ -112,13 +112,14 @@ date:   2020-04-26
            text: 
                this is test of multiline string
            state: present
-         provider: "{{ eapi }}"
+         provider: ''{{ eapi }}''         
+         provider: {{ eapi }}
          
          }}}
          llll
 ```
 
-```yaml
+```python
 ansible_connection: local
 ansible_network_os: eos
 # provider settings
