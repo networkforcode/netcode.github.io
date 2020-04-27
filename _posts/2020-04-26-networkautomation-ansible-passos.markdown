@@ -117,25 +117,26 @@ date:   2020-04-26
 ```
 
 ```yaml
-    ansible_connection: local
-    ansible_network_os: eos
-    # provider settings
-    eapi:
-        authorize: yes
-        auth_pass: " {{ secret_auth_pass }}"
-        port: 80
-        transport: eapi
-    use_ssl: no
+ansible_connection: local
+ansible_network_os: eos
+# provider settings
+eapi:
+  authorize: yes
+  auth_pass: " {{ secret_auth_pass }}"
+  port: 80
+  transport: eapi
+use_ssl: no
     
-    # E utiliza a eapi variávl em suas tarefas:
-    tasks:
-      - name: provider demo with eos
-         eos_banner:
-           banner: motd
-           text: 
-               this is test of multiline string
-           state: present
-         provider: "{{ eapi }}"          
+# E utiliza a eapi variávl em suas tarefas:
+tasks:
+  - name: provider demo with eos
+      eos_banner:
+         banner: motd
+         text: 
+            this is test of multiline string
+         state: present
+      provider: "{{ eapi }}"      
+      "{{  }}"
 ```
 
 <p>Isso já é obsoleto, porém, ainda dar para utilizar dependendo da versão do ansible no qual você está trabalhando.</p>
