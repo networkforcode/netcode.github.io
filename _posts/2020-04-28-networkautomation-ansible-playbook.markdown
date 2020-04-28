@@ -18,7 +18,7 @@ date:   2020-04-28
 
 ✅ Dimensionar HSRP load balancing
 
-<p>Iremos utilizar o lab mostrado na imagem abaixo. Este lab encontra-se no meu repositório do <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">GitHub</a> junto com o código usado neste artigo.</p>
+<p>Iremos utilizar o lab mostrado na imagem abaixo. Este lab encontra-se no meu repositório do <a href="https://github.com/tporfirio/ansible/tree/master/lab/lab_01">GitHub</a> junto com o código usado neste artigo.</p>
 
 <img src="{{ '/assets/img/artigo04.jpg' | prepend: site.baseurl }}" alt=""> 
 
@@ -113,134 +113,14 @@ date:   2020-04-28
  
 <img src="{{ '/assets/img/artigo04/img2.png' | prepend: site.baseurl }}" alt=""> 
 
-<p>A quinta task faz junção com a sexta task. Essas duas tasks irão utilizar o módulo ios_config para criar dois grupos de HSRP para fazer load balancing de tráfego entre as vlans:</p>
+<p>A quinta task faz junção com a sexta task. Essas duas tasks irão utilizar o módulo ios_config para criar dois grupos de HSRP seguidos de SVIs para fazer load balancing de tráfego entre as vlans.</p>
 
-```yaml
-#Configuring HSRP group 1 in the SW_CORE_1
-- name: Configuring switch virtual interface with HSRP in the Core SW_CORE_1
-  hosts: SW_CORE_1 # Configurando HSRP grupo 1 e grupo 2 no SW core 1
-  gather_facts: false
+<p>Configurando SVIs e HSRP load balancing no SW_CORE_1:</p>
 
-  vars:
-    ansible_connection: network_cli
-    ansible_network_os: ios
-    ansible_user: teste
-    ansible_ssh_pass: teste
-  tasks:    
-    - name: Configurando switch virtual interface com HSRP grupo 1 no SW_CORE_1
-      ios_config:        
-        parents: "interface {{ item.interface }}" # Chamando o dicionário with_items
-        lines: # Executando itens do dicionário
-          - "ip address {{ item.address }} {{ item.mask }}" # Chamando o parâmetro address e o parâmetro mask 
-          - "no shutdown"
-          - "standby 1 ip 192.168.11.3"
-          - "standby 1 preempt"
-          - "standby 1 priority 120"
-          - "standby 1 ip 192.168.11.67"
-          - "standby 1 preempt"
-          - "standby 1 priority 120"
-          - "standby 1 ip 192.168.11.131"
-          - "standby 1 preempt"
-          - "standby 1 priority 120"
-          - "standby 1 ip 192.168.11.195"
-          - "standby 1 preempt"
-          - "standby 1 priority 120"          
-      with_items:
-        - { interface : vlan 10, address : 192.168.11.1, mask : 255.255.255.192 }
-        - { interface : vlan 20, address : 192.168.11.65, mask : 255.255.255.192 }
-        - { interface : vlan 30, address : 192.168.11.129, mask : 255.255.255.192 }
-        - { interface : vlan 40, address : 192.168.11.193, mask : 255.255.255.192 }
+<img src="{{ '/assets/img/artigo04/img3.png' | prepend: site.baseurl }}" alt=""> 
 
-      register: print_output
+<p>Configurando SVIs e HSRP load balancing no SW_CORE_2:</p>
 
-    #Configuring HSRP group 2 in the SW_CORE_1
-    - name: Configurando switch virtual interface com HSRP grupo 2 no SW_CORE_1
-      ios_config:        
-        parents: "interface {{ item.interface }}"
-        lines:          
-          - "standby 2 ip 192.168.11.4"        
-          - "standby 2 preempt"
-          - "standby 2 priority 110"
-          - "standby 2 ip 192.168.11.68"
-          - "standby 2 preempt"
-          - "standby 2 priority 110"
-          - "standby 2 ip 192.168.11.132"
-          - "standby 2 preempt"
-          - "standby 2 priority 110"
-          - "standby 2 ip 192.168.11.196"
-          - "standby 2 preempt"
-          - "standby 2 priority 110"
-      with_items:
-        - { interface : vlan 10 }
-        - { interface : vlan 20 }
-        - { interface : vlan 30 }
-        - { interface : vlan 40 }      
+<img src="{{ '/assets/img/artigo04/img4.png' | prepend: site.baseurl }}" alt=""> 
 
-      register: print_output
-```
-
-```yaml
-
-#Configuring HSRP group 2 in the SW_CORE_2
-- name: Configuring switch virtual interface with HSRP Core SW_CORE_2
-  hosts: SW_CORE_2 # Configurando HSRP grupo 1 e grupo 2 no SW core 1
-  gather_facts: false
-
-  vars:
-    ansible_connection: network_cli
-    ansible_network_os: ios
-    ansible_user: teste
-    ansible_ssh_pass: teste
-  tasks:    
-    - name: Configurando switch virtual interface com HSRP grupo 2 no SW_CORE_2
-      ios_config:        
-        parents: "interface {{ item.interface }}"
-        lines:
-          - "ip address {{ item.address }} {{ item.mask }}" 
-          - "no shutdown"
-          - "standby 2 ip 192.168.11.4"   
-          - "standby 2 preempt"
-          - "standby 2 priority 120"
-          - "standby 2 ip 192.168.11.68"
-          - "standby 2 preempt"
-          - "standby 2 priority 120"
-          - "standby 2 ip 192.168.11.132"
-          - "standby 2 preempt"
-          - "standby 2 priority 120"
-          - "standby 2 ip 192.168.11.196"
-          - "standby 2 preempt"
-          - "standby 2 priority 120"          
-      with_items:
-        - { interface : vlan 10, address : 192.168.11.2, mask : 255.255.255.192 }
-        - { interface : vlan 20, address : 192.168.11.66, mask : 255.255.255.192 }
-        - { interface : vlan 30, address : 192.168.11.130, mask : 255.255.255.192 }
-        - { interface : vlan 40, address : 192.168.11.194, mask : 255.255.255.192 }
-
-      register: print_output
-
-    #Configuring HSRP group 1 in the SW_CORE_2
-    - name: Configurando switch virtual interface com HSRP grupo 1 no SW_CORE_2
-      ios_config:        
-        parents: "interface {{ item.interface }}"
-        lines:          
-          - "standby 1 ip 192.168.11.3"       
-          - "standby 1 preempt"
-          - "standby 1 priority 110"
-          - "standby 1 ip 192.168.11.67"
-          - "standby 1 preempt"
-          - "standby 1 priority 110"
-          - "standby 1 ip 192.168.11.131"
-          - "standby 1 preempt"
-          - "standby 1 priority 110"
-          - "standby 1 ip 192.168.11.195"
-          - "standby 1 preempt"
-          - "standby 1 priority 110"
-      with_items:
-        - { interface : vlan 10 }
-        - { interface : vlan 20 }
-        - { interface : vlan 30 }
-        - { interface : vlan 40 }      
-        
-      register: print_output
-```
-
+<p>Bom, esses são alguns exemplos de como trabalhar com módulos ansible playbook. E aí, o que achou deste artigo? Dá um pulo lá no nosso <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">Linkedin</a> para ficar por dentro de novas publicações, vai ser legal contar com sua presença por lá. Ficamos por aqui e nos vemos no próximo post.</p>
