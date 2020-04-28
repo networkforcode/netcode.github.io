@@ -108,3 +108,42 @@ date:   2020-04-28
 ```
 
 <p>A quarta task foi descrita dentro da variável de conexão da task anterior, pois, a quarta task irá executar comandos no mesmo grupo de devices.</p>
+
+<p>Iremos executar a terceira e a quarta task novamente, porém, alterando as interfaces e o grupo de devices, iremos aplicar as configuração no grupo de switches de acessos.</p>
+ 
+```yaml 
+  # Habilitando 802.1q nas interfaces
+- name: Configuring 802.1q in the interfaces in access switches
+  hosts: ansible_access
+  gather_facts: false
+
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: ios
+    ansible_user: teste
+    ansible_ssh_pass: teste
+
+  tasks:    
+    - name: Habilitando 802.1q nas interfaces dos switches access
+      ios_config:        
+        parents: "interface {{ item.interface }}"
+        lines:
+          - switchport trunk encapsulation dot1q
+      with_items:
+        - { interface : Ethernet1/0 }
+        - { interface : Ethernet1/1 }  
+
+      register: print_output
+      
+     - name: HABILITANDO TRUNK MODE NAS INTERFACES ATIVAS DOS SWITCHES ACCESS
+      ios_l2_interface:
+        aggregate:
+          - name: Ethernet1/0
+            mode: trunk
+            trunk_allowed_vlans: 1-4094
+          - name: Ethernet1/1
+            mode: trunk
+            trunk_allowed_vlans: 1-4094          
+            
+      register: print_output
+```
