@@ -6,10 +6,15 @@ date:   2020-04-28
 
 <p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos trabalhar com módulos do Ansible para criar um playbook onde irá fazer o provisionamento das seguintes tarefas:</p>
 ✅ Habilitar o VTP transparent mode
+
 ✅ Criar VLANS 10, 20, 30 e 40
+
 ✅ Habilitar 802.1q nas interfaces
+
 ✅ Habilitar trunk mode nas interfaces
+
 ✅ Configurar switch virtual interface com HSRP
+
 ✅ Dimensionar HSRP load balancing
 
 <p>Iremos utilizar o lab mostrado na imagem abaixo. Este lab encontra-se no meu repositório do <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">GitHub</a> junto com o código usado neste artigo.</p>
