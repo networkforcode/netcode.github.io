@@ -83,32 +83,7 @@ date:   2020-04-28
 
 <p>Agora iremos montar a terceira task:</p>
 
-```yaml
-# Habilitar 802.1q nas interfaces
-- name: Configuring 802.1q in the interfaces in core switches
-  hosts: ansible_core
-  gather_facts: false
-
-  vars:
-    ansible_connection: network_cli
-    ansible_network_os: ios
-    ansible_user: teste
-    ansible_ssh_pass: teste
-
-  tasks:    
-    - name: Habilitando 802.1q nas interfaces dos switches core
-      ios_config:        
-        parents: "interface {{ item.interface }}" # Entra nas interfaces listadas no dicionário with_items
-        lines: # Executa comandos dentro do modo de configuração config-if
-          - switchport trunk encapsulation dot1q
-      with_items:
-        - { interface : Ethernet0/0 }
-        - { interface : Ethernet0/1 }
-        - { interface : Ethernet0/2 }
-        - { interface : Ethernet0/3 }      
-
-      register: print_output
-```
+<img src="{{ '/assets/img/artigo04/img1.png' | prepend: site.baseurl }}" alt=""> 
 
 <p>Essa task consiste em habilitar o 802.1q nas interfaces dos core que conecta com os switches de acessos. Agora iremos executar a qaurta task, a próxima task irá habilitar o trunk mode para ocorrer distribuição de vlans pelo link.</p>
 
