@@ -20,11 +20,11 @@ date:   2020-04-28
 
 <p>Iremos utilizar o lab mostrado na imagem abaixo. Este lab encontra-se no meu repositório do <a href="https://www.linkedin.com/company/ccna-student/?viewAsMember=true">GitHub</a> junto com o código usado neste artigo.</p>
 
-<img src="{{ '/assets/img/lab3.jpg' | prepend: site.baseurl }}" alt=""> 
+<img src="{{ '/assets/img/artigo04.jpg' | prepend: site.baseurl }}" alt=""> 
 
-<p>Bom, iremos montar nosso playbook para executar a primeira task:</p>
+<p>Bom, iremos montar nosso playbook para executar a primeira e a segunda task:</p>
 
-```bash
+```yaml
 # Habilitar o VTP transparent mode
 ---
 - name: Configuring devices # Nome do manual 
@@ -44,7 +44,7 @@ date:   2020-04-28
 
 <p>Iremos descrever a task para enviar a configuração que queremos executar no device remoto:</p>
 
-```bash
+```yaml
   tasks:
     - name: Configurando VTP Transparent mode e NTP em todos os switches 
       ios_config: # Módulo de configuração       
@@ -55,7 +55,81 @@ date:   2020-04-28
       register: print_output # Armazenando os dados executados no módulo acima
 
     -  debug: var=print_output.stdout_lines # Imprimindo os dados armazenados 
+    
+    # Criar VLANS 10, 20, 30 e 40
+    - name: Criando VLANS 10, 20, 30 e 40
+      ios_vlan: # Módulos contendo apenas parametrização de vlan
+        aggregate: # Executa a lista de itens ordenados pelo parâmetro vlan_id
+          - vlan_id: 10              
+            name: VLAN 10          
+            state: active
+
+          - vlan_id: 20              
+            name: VLAN 20          
+            state: active 
+
+          - vlan_id: 30              
+            name: VLAN 30          
+            state: active
+
+          - vlan_id: 40              
+            name: VLAN 40          
+            state: active          
+          
+      register: print_output
 ```
 
-<p>Bom, com poucas linhas de código, podemos configurar o VTP e replicar em todos os devices da topologia.</p>
+<p>Bom, com poucas linhas de código, podemos configurar o VTP e vlan id e replicar em todos os devices da topologia.</p>
 
+<p>Agora iremos montar a terceira task:</p>
+
+```yaml
+# Habilitar 802.1q nas interfaces
+- name: Configuring 802.1q in the interfaces in core switches
+  hosts: ansible_core
+  gather_facts: false
+
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: ios
+    ansible_user: teste
+    ansible_ssh_pass: teste
+
+  tasks:    
+    - name: Habilitando 802.1q nas interfaces dos switches core
+      ios_config:        
+        parents: "interface {{ item.interface }}" # Entra nas interfaces listadas no dicionário with_items
+        lines: # Executa comandos dentro do modo de configuração config-if
+          - switchport trunk encapsulation dot1q
+      with_items:
+        - { interface : Ethernet0/0 }
+        - { interface : Ethernet0/1 }
+        - { interface : Ethernet0/2 }
+        - { interface : Ethernet0/3 }      
+
+      register: print_output
+```
+
+<p>Essa task consiste em habilitar o 802.1q nas interfaces dos core que conecta com os switches de acessos. Agora iremos executar a qaurta task, a próxima task irá habilitar o trunk mode para ocorrer distribuição de vlans pelo link.</p>
+
+```yaml
+    - name: HABILITANDO TRUNK MODE NAS INTERFACES ATIVAS DOS SWITCHES CORE
+      ios_l2_interface:
+        aggregate:
+          - name: Ethernet0/0
+            mode: trunk
+            trunk_allowed_vlans: 1-4094
+          - name: Ethernet0/1
+            mode: trunk
+            trunk_allowed_vlans: 1-4094
+          - name: Ethernet0/2
+            mode: trunk
+            trunk_allowed_vlans: 1-4094
+          - name: Ethernet0/3
+            mode: trunk
+            trunk_allowed_vlans: 1-4094
+            
+      register: print_output
+```
+
+<p>A quarta task foi descrita dentro da variável de conexão da task anterior, pois, a quarta task irá executar comandos no mesmo grupo de devices.</p>
