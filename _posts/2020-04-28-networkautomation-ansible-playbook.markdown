@@ -85,7 +85,7 @@ date:   2020-04-28
 
 <img src="{{ '/assets/img/artigo04/img1.png' | prepend: site.baseurl }}" alt=""> 
 
-<p>Essa task consiste em habilitar o 802.1q nas interfaces dos core que conecta com os switches de acessos. Agora iremos executar a qaurta task, a próxima task irá habilitar o trunk mode para ocorrer distribuição de vlans pelo link.</p>
+<p>Essa task consiste em habilitar o 802.1q nas interfaces dos core que conecta com os switches de acessos. Agora iremos executar a qaurta task, a próxima task irá habilitar o trunk mode para ocorrer distribuição de vlans pelo link:</p>
 
 ```yaml
     - name: HABILITANDO TRUNK MODE NAS INTERFACES ATIVAS DOS SWITCHES CORE
@@ -109,12 +109,16 @@ date:   2020-04-28
 
 <p>A quarta task foi descrita dentro da variável de conexão da task anterior, pois, a quarta task irá executar comandos no mesmo grupo de devices.</p>
 
-<p>Iremos executar a terceira e a quarta task novamente, porém, alterando as interfaces e o grupo de devices, iremos aplicar as configuração no grupo de switches de acessos.</p>
+<p>Iremos executar a terceira e a quarta task novamente, porém, alterando as interfaces e o grupo de devices, iremos aplicar as configurações no grupo de switches de acessos:</p>
  
-```yaml 
-  # Habilitando 802.1q nas interfaces
-- name: Configuring 802.1q in the interfaces in access switches
-  hosts: ansible_access
+<img src="{{ '/assets/img/artigo04/img2.png' | prepend: site.baseurl }}" alt=""> 
+
+<p>A quinta task faz junção com a sexta task. Essas duas tasks irão utilizar o módulo ios_config para criar dois grupos de HSRP para fazer load balancing de tráfego entre as vlans:</p>
+
+```yaml
+#Configuring HSRP group 1 in the SW_CORE_1
+- name: Configuring switch virtual interface with HSRP in the Core SW_CORE_1
+  hosts: SW_CORE_1 # Configurando HSRP grupo 1 e grupo 2 no SW core 1
   gather_facts: false
 
   vars:
@@ -124,26 +128,139 @@ date:   2020-04-28
     ansible_ssh_pass: teste
 
   tasks:    
-    - name: Habilitando 802.1q nas interfaces dos switches access
+    - name: Configurando switch virtual interface com HSRP grupo 1 no SW_CORE_1
+      ios_config:        
+        parents: "interface {{ item.interface }}" # Chamando o dicionário with_items
+        lines: # Executando itens do dicionário
+          - "ip address {{ item.address }} {{ item.mask }}" # Chamando o parâmetro address e o parâmetro mask 
+          - "no shutdown"
+
+          - "standby 1 ip 192.168.11.3"
+          - "standby 1 preempt"
+          - "standby 1 priority 120"
+
+          - "standby 1 ip 192.168.11.67"
+          - "standby 1 preempt"
+          - "standby 1 priority 120"
+
+          - "standby 1 ip 192.168.11.131"
+          - "standby 1 preempt"
+          - "standby 1 priority 120"
+
+          - "standby 1 ip 192.168.11.195"
+          - "standby 1 preempt"
+          - "standby 1 priority 120"
+          
+      with_items:
+        - { interface : vlan 10, address : 192.168.11.1, mask : 255.255.255.192 }
+        - { interface : vlan 20, address : 192.168.11.65, mask : 255.255.255.192 }
+        - { interface : vlan 30, address : 192.168.11.129, mask : 255.255.255.192 }
+        - { interface : vlan 40, address : 192.168.11.193, mask : 255.255.255.192 }
+
+      register: print_output
+
+    #Configuring HSRP group 2 in the SW_CORE_1
+    - name: Configurando switch virtual interface com HSRP grupo 2 no SW_CORE_1
+      ios_config:        
+        parents: "interface {{ item.interface }}"
+        lines:          
+          - "standby 2 ip 192.168.11.4"        
+          - "standby 2 preempt"
+          - "standby 2 priority 110"
+
+          - "standby 2 ip 192.168.11.68"
+          - "standby 2 preempt"
+          - "standby 2 priority 110"
+
+          - "standby 2 ip 192.168.11.132"
+          - "standby 2 preempt"
+          - "standby 2 priority 110"
+
+          - "standby 2 ip 192.168.11.196"
+          - "standby 2 preempt"
+          - "standby 2 priority 110"
+
+      with_items:
+        - { interface : vlan 10 }
+        - { interface : vlan 20 }
+        - { interface : vlan 30 }
+        - { interface : vlan 40 }      
+
+      register: print_output
+```
+
+```yaml
+
+#Configuring HSRP group 2 in the SW_CORE_2
+- name: Configuring switch virtual interface with HSRP Core SW_CORE_2
+  hosts: SW_CORE_2 # Configurando HSRP grupo 1 e grupo 2 no SW core 1
+  gather_facts: false
+
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: ios
+    ansible_user: teste
+    ansible_ssh_pass: teste
+
+  tasks:    
+    - name: Configurando switch virtual interface com HSRP grupo 2 no SW_CORE_2
       ios_config:        
         parents: "interface {{ item.interface }}"
         lines:
-          - switchport trunk encapsulation dot1q
+          - "ip address {{ item.address }} {{ item.mask }}" 
+          - "no shutdown"
+
+          - "standby 2 ip 192.168.11.4"   
+          - "standby 2 preempt"
+          - "standby 2 priority 120"
+
+          - "standby 2 ip 192.168.11.68"
+          - "standby 2 preempt"
+          - "standby 2 priority 120"
+
+          - "standby 2 ip 192.168.11.132"
+          - "standby 2 preempt"
+          - "standby 2 priority 120"
+
+          - "standby 2 ip 192.168.11.196"
+          - "standby 2 preempt"
+          - "standby 2 priority 120"
+          
       with_items:
-        - { interface : Ethernet1/0 }
-        - { interface : Ethernet1/1 }  
+        - { interface : vlan 10, address : 192.168.11.2, mask : 255.255.255.192 }
+        - { interface : vlan 20, address : 192.168.11.66, mask : 255.255.255.192 }
+        - { interface : vlan 30, address : 192.168.11.130, mask : 255.255.255.192 }
+        - { interface : vlan 40, address : 192.168.11.194, mask : 255.255.255.192 }
 
       register: print_output
-      
-     - name: HABILITANDO TRUNK MODE NAS INTERFACES ATIVAS DOS SWITCHES ACCESS
-      ios_l2_interface:
-        aggregate:
-          - name: Ethernet1/0
-            mode: trunk
-            trunk_allowed_vlans: 1-4094
-          - name: Ethernet1/1
-            mode: trunk
-            trunk_allowed_vlans: 1-4094          
-            
+
+    #Configuring HSRP group 1 in the SW_CORE_2
+    - name: Configurando switch virtual interface com HSRP grupo 1 no SW_CORE_2
+      ios_config:        
+        parents: "interface {{ item.interface }}"
+        lines:          
+          - "standby 1 ip 192.168.11.3"       
+          - "standby 1 preempt"
+          - "standby 1 priority 110"
+
+          - "standby 1 ip 192.168.11.67"
+          - "standby 1 preempt"
+          - "standby 1 priority 110"
+
+          - "standby 1 ip 192.168.11.131"
+          - "standby 1 preempt"
+          - "standby 1 priority 110"
+
+          - "standby 1 ip 192.168.11.195"
+          - "standby 1 preempt"
+          - "standby 1 priority 110"
+
+      with_items:
+        - { interface : vlan 10 }
+        - { interface : vlan 20 }
+        - { interface : vlan 30 }
+        - { interface : vlan 40 }      
+        
       register: print_output
 ```
+
