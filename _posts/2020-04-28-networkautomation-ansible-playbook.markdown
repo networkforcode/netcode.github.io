@@ -126,7 +126,6 @@ date:   2020-04-28
     ansible_network_os: ios
     ansible_user: teste
     ansible_ssh_pass: teste
-
   tasks:    
     - name: Configurando switch virtual interface com HSRP grupo 1 no SW_CORE_1
       ios_config:        
@@ -134,23 +133,18 @@ date:   2020-04-28
         lines: # Executando itens do dicionário
           - "ip address {{ item.address }} {{ item.mask }}" # Chamando o parâmetro address e o parâmetro mask 
           - "no shutdown"
-
           - "standby 1 ip 192.168.11.3"
           - "standby 1 preempt"
           - "standby 1 priority 120"
-
           - "standby 1 ip 192.168.11.67"
           - "standby 1 preempt"
           - "standby 1 priority 120"
-
           - "standby 1 ip 192.168.11.131"
           - "standby 1 preempt"
           - "standby 1 priority 120"
-
           - "standby 1 ip 192.168.11.195"
           - "standby 1 preempt"
-          - "standby 1 priority 120"
-          
+          - "standby 1 priority 120"          
       with_items:
         - { interface : vlan 10, address : 192.168.11.1, mask : 255.255.255.192 }
         - { interface : vlan 20, address : 192.168.11.65, mask : 255.255.255.192 }
@@ -167,19 +161,15 @@ date:   2020-04-28
           - "standby 2 ip 192.168.11.4"        
           - "standby 2 preempt"
           - "standby 2 priority 110"
-
           - "standby 2 ip 192.168.11.68"
           - "standby 2 preempt"
           - "standby 2 priority 110"
-
           - "standby 2 ip 192.168.11.132"
           - "standby 2 preempt"
           - "standby 2 priority 110"
-
           - "standby 2 ip 192.168.11.196"
           - "standby 2 preempt"
           - "standby 2 priority 110"
-
       with_items:
         - { interface : vlan 10 }
         - { interface : vlan 20 }
@@ -201,7 +191,6 @@ date:   2020-04-28
     ansible_network_os: ios
     ansible_user: teste
     ansible_ssh_pass: teste
-
   tasks:    
     - name: Configurando switch virtual interface com HSRP grupo 2 no SW_CORE_2
       ios_config:        
@@ -209,23 +198,18 @@ date:   2020-04-28
         lines:
           - "ip address {{ item.address }} {{ item.mask }}" 
           - "no shutdown"
-
           - "standby 2 ip 192.168.11.4"   
           - "standby 2 preempt"
           - "standby 2 priority 120"
-
           - "standby 2 ip 192.168.11.68"
           - "standby 2 preempt"
           - "standby 2 priority 120"
-
           - "standby 2 ip 192.168.11.132"
           - "standby 2 preempt"
           - "standby 2 priority 120"
-
           - "standby 2 ip 192.168.11.196"
           - "standby 2 preempt"
-          - "standby 2 priority 120"
-          
+          - "standby 2 priority 120"          
       with_items:
         - { interface : vlan 10, address : 192.168.11.2, mask : 255.255.255.192 }
         - { interface : vlan 20, address : 192.168.11.66, mask : 255.255.255.192 }
@@ -242,19 +226,15 @@ date:   2020-04-28
           - "standby 1 ip 192.168.11.3"       
           - "standby 1 preempt"
           - "standby 1 priority 110"
-
           - "standby 1 ip 192.168.11.67"
           - "standby 1 preempt"
           - "standby 1 priority 110"
-
           - "standby 1 ip 192.168.11.131"
           - "standby 1 preempt"
           - "standby 1 priority 110"
-
           - "standby 1 ip 192.168.11.195"
           - "standby 1 preempt"
           - "standby 1 priority 110"
-
       with_items:
         - { interface : vlan 10 }
         - { interface : vlan 20 }
