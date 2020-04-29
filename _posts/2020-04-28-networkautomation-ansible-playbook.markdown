@@ -40,7 +40,7 @@ date:   2020-04-28
 
 <p>A variável de conexo nada mais é que, o registro de conexão do device remoto, essas variáveis também faz a conexão de usuários cadastrados no tacacs ou radius.</p>
 
-<p>Dica: Ao declarar minhas variáveis de comunicação, utilizei o parâmetro network_cli que se refere no modo de conexão CLI sobre SSH. Vale ressaltar que no so todos os módulos de redes que suportam esse tipo de protocolo de comunicação.</p>
+<p>Dica: Ao declarar minhas variáveis de comunicação, utilizei o parâmetro network_cli que se refere no modo de conexão CLI sobre SSH. Vale ressaltar que não são todos os módulos de redes que suportam esse tipo de protocolo de comunicação.</p>
 
 <p>Iremos descrever a task para enviar a configuração que queremos executar no device remoto:</p>
 
