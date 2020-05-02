@@ -1,7 +1,7 @@
 title: NetCode
 description: O Blog NetCode trata-se de programação da perspectiva de um engenheiro de rede.
 
-url: https://networkforcode.github.io/
+url: https://netcode.github.io/
 baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
