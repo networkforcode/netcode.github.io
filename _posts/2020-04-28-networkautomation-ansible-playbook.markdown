@@ -6,7 +6,7 @@ date:   2020-04-28
 
 <p class="intro"><span class="dropcap">N</span>o artigo de hoje, iremos trabalhar com módulos do Ansible para criar um playbook onde irá fazer o provisionamento das seguintes tarefas:</p>
 
-✅ Habilitar o VTP transparent mod
+✅ Habilitar o VTP transparent mode
 
 ✅ Criar VLANS 10, 20, 30 e 40
 
