@@ -26,7 +26,7 @@ que foi feito, por exemplo, uma configuração que não tinha no device.</p>
 
 <p>Já o pyATS pode ser usado para automação de testes, exemplo, desejo validar se a interface Ethernet0/2 está DOWN:</p>
 
-```python
+```javascript
 log.info(banner("Executando parser para filtrar parâmetros..."))
 #Executando o parâmetro parse para retornar dados.
 pre_output = device.parse("show interface Ethernet0/2")
