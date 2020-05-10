@@ -20,7 +20,7 @@ date:   2020-04-28
 
 <p>Iremos utilizar o lab mostrado na imagem abaixo. Este lab encontra-se no meu repositório do <a href="https://github.com/tporfirio/ansible/tree/master/lab/lab_01">GitHub</a> junto com o código usado neste artigo.</p>
 
-<img src="{{ '/assets/img/lab3.jpg' | prepend: site.baseurl }}" alt=""> 
+<img src="{{ '/assets/img/artigo04.jpg' | prepend: site.baseurl }}" alt=""> 
 
 <p>Bom, iremos montar nosso playbook para executar a primeira e a segunda task:</p>
 
