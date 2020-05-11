@@ -6,7 +6,7 @@ date:   2020-05-11
 
 <p class="intro"><span class="dropcap">B</span>uenas NetCode… Neste artigo iremos dar os primeiros passos com o pyATS e Genie, iremos desmistificar o conceito por trás dessas duas ferramentas que de certa forma ajuda bastante nos diagnósticos de validação do status da rede.</p>
 
-<p>O que é pyATS e Genie?</p>
+#### O que é pyATS e Genie?
 
 <p>Com a estrutura de verificação do pyATS podemos simplificar nossa estrutura de redes e otimizar nossas operações diárias. Com o Genie, podemos aplicar filtros para fazer a aprendizagem de inúmeros serviços que estão operando na rede.</p>
 
@@ -55,7 +55,7 @@ série de alterações no estado operacional , como:</p>
 <p>Tradicionalmente, a validação de tais mudanças dependia da experiência de cada engenheiro.
 Mas o pyATS pode aprender e criar um perfil completo da configuração e do status operacional de um recurso, permitindo que os usuários construam a lógica. Por exemplo, com apenas alguns comandos genie, você pode criar um perfil do seu sistema antes e depois de uma alteração na configuração e obter um resumo detalhado do que exatamente mudou.</p>
 
-<p>Para usar a biblioteca pyATS (que engloba também o Genie), basta baixar o pacote da biblioteca com o seguindo comando:</p>
+<p>Para usar a biblioteca pyATS (que engloba também o Genie), basta baixar o pacote da biblioteca com o seguinte comando:</p>
 
 ```python
 pip install pyATS[library]
@@ -75,55 +75,57 @@ pip install pyATS[library]
 
 ```yaml
 devices:
-SW_CORE_1:
-type: switch
-os: ios
-platform: iosl2
-alias: sw1_dev
-tacacs:
-login_prompt: 'login:'
-password_prompt: 'Password:'
-username: teste
-passwords:
-tacacs: teste
-connections:
-cli:
-protocol: ssh
-ip: 192.168.36.214
-port: 22
-SW_CORE_2:
-type: switch
-os: ios
-platform: iosl2
-alias: sw2_dev
-tacacs:
-login_prompt: 'login:'
-password_prompt: 'Password:'
-username: teste
-passwords:
-tacacs: teste
-connections:
-cli:
-protocol: ssh
-ip: 192.168.36.215
-port: 22
 
-SW_ACCESS_1:
-type: switch
-os: ios
-platform: iosl2
-alias: utt
-tacacs:
-login_prompt: 'login:'
-password_prompt: 'Password:'
-username: teste
-passwords:
-tacacs: teste
-connections:
-cli:
-protocol: ssh
-ip: 192.168.36.210
-port: 22
+  SW_CORE_1:
+    type: switch
+    os: ios
+    platform: iosl2
+    alias: sw1_dev
+    tacacs:
+    login_prompt: 'login:'
+    password_prompt: 'Password:'
+    username: teste
+    passwords:
+    tacacs: teste
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.36.214
+        port: 22
+        
+  SW_CORE_2:
+    type: switch
+    os: ios
+    platform: iosl2
+    alias: sw2_dev
+    tacacs:
+    login_prompt: 'login:'
+    password_prompt: 'Password:'
+    username: teste
+    passwords:
+    tacacs: teste
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.36.215
+        port: 22
+
+  SW_ACCESS_1:
+    type: switch
+    os: ios
+    platform: iosl2
+    alias: utt
+    tacacs:
+    login_prompt: 'login:'
+    password_prompt: 'Password:'
+    username: teste
+    passwords:
+    tacacs: teste
+    connections:
+      cli:
+        protocol: ssh
+        ip: 192.168.36.210
+        port: 22
 ```
 
 <p>Aprendendo o estado da feature de vlan para criação de objeto como um dos perfis de objetos da rede:</p>
@@ -138,7 +140,7 @@ $ genie parse "sh vlan" --testbed testbed.yaml  --devices SW_CORE_2 --output pro
 
 <p>Quando ocorrer um desastre ou quando você fizer alterações na configuração, o genie pode ser capaz de identificar exatamente o que você está procurando.</p>
 
-<p>Para simular uma possível configuração que o estado atual do perfil de vlan ainda não tem, irei criar a vlan 100 nos três devices que temos no nosso arquivo testbed:</p>
+<p>Para simular uma possível configuração que o estado atual do perfil de vlan ainda não tem, irei criar a vlan 110 nos três devices que temos no nosso arquivo testbed:</p>
 
 ```bash
 SW_CORE_1(config)# vlan 110
@@ -161,9 +163,9 @@ $ genie parse "sh vlan" --testbed testbed.yaml  --devices SW_CORE_1 --output pro
 $ genie parse "sh vlan" --testbed testbed.yaml  --devices SW_CORE_2 --output profile-devices/SW_CORE_2/vlan/depois/
 ```
 
-```bash
 <p>Agora que criamos um novo perfil, iremos efetuar a comparação da feature de vlan dos dois perfis criados:</p>
 
+```bash
 $ diff  profile-devices/SW_ACCESS_1/vlan/atual/ profile-devices/SW_ACCESS_1/vlan/depois/
 
 >     "110": {
@@ -195,6 +197,6 @@ $ diff  profile-devices/SW_CORE_2/vlan/atual/ profile-devices/SW_CORE_2/vlan/dep
 >     },
 ```
 
-<p>Dessa forma podemos fazer um diagnóstico rápido do estado de configuração antes e depois de ter feito algo.</p>
+<p>Dessa forma podemos fazer um diagnóstico rápido do estado de configuração antes e depois de ter feito algo. O parâmetro "diff" serve para comparar o perfil da feature de vlan antes e depois de ter ocorrido uma mudança, percebe-se acima que foi criada uma nova vlan (110).</p>
 
 <p>Ficamos por aqui, no próximo post iremos nos aprofundar ainda mais na solução pyATS. Até breve!!!</p>
