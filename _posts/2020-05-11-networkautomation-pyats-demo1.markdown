@@ -16,7 +16,7 @@ date:   2020-05-11
 
 <p>Dica: O objeto analisador se refere ao tipo de protocolo que você deseja aprender ou o próprio comando em específico, a saída do comando é baseada em dicionário python, dessa forma podemos  manipular os parâmetros armazenados na saída do comando aprendido.</p>
 
-<p>A ideia de usar o genie para automatizar o diagnostico da rede, é fazer com que, você possa instanciar a grande maioria ou os principais serviços que rodam no seus dispositivos de rede em geral, servidor, router, firewall, switch, entre outros.</p>
+<p>A ideia de usar o genie para automatizar o diagnóstico da rede, é fazer com que, você possa instanciar a grande maioria ou os principais serviços que rodam no seus dispositivos de rede em geral, servidor, router, firewall, switch, entre outros.</p>
 
 <p>Dessa forma podemos pegar a configuração do antes relacionados aos objetos e apenas gravar
 o depois quando alguma alteração nesses serviços (objetos) instanciados vieram a ter falhas, com isso você pode comparar o antes e o depois da alteração para identificar o erro.</p>
